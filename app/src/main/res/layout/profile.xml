@@ -125,7 +125,7 @@
                     android:layout_weight="0" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/connectRoomButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|right"

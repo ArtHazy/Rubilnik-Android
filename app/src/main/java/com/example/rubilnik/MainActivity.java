@@ -2,6 +2,7 @@ package com.example.rubilnik;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,10 +20,12 @@ public class MainActivity extends AppCompatActivity implements SetUserNameDialog
     TextView usernameTextView;
 
     Button usernameButton;
+    Button connectButton;
     ImageButton editUsernameImageButton;
 
     LinearLayout settingsLinLay;
     LinearLayout settingsGroup;
+    Context context;
 
 
 
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements SetUserNameDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        context = this;
 
         settingsLinLay = findViewById(R.id.settings_lin_lay);
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements SetUserNameDialog
 
 
         usernameButton = findViewById(R.id.usernameButton);
+        connectButton = findViewById(R.id.connectRoomButton);
 
         usernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +82,16 @@ public class MainActivity extends AppCompatActivity implements SetUserNameDialog
                 setUserNameDialog.show(getSupportFragmentManager(),"Rename");
             }
         });
+
+
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Http http = new Http(context);
+                http.execute();
+            }
+        });
+
     }
 
     @Override
