@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity"
+    android:background="@color/greyDark"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/txtRub">
+
+        <TextView
+            android:text="@string/app_name1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/textMainRub"/>
+        <TextView
+            android:text="@string/app_name2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/textMainRub"
+            android:layout_marginLeft="0dp"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_controller_view_tag"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:navGraph="@navigation/graph_navigation"-->
+<!--        app:defaultNavHost="true"-->
+<!--        class="androidx.navigation.fragment.NavHostFragment"-->
+<!--        />-->
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menuBottom"
+        android:background="@android:color/transparent"
+        android:layout_margin="38dp"
+        app:itemIconSize="38dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/menu_bottom"
+        app:itemIconTint="@color/greyLight"
+        app:itemRippleColor="@android:color/transparent"/>
+</LinearLayout>

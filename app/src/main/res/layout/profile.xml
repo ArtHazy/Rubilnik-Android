@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/greyDark">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -115,7 +116,7 @@
                         android:hint="Key"
                         android:inputType="text|textCapCharacters"
                         android:textAllCaps="false"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
 
                 </LinearLayout>
 
@@ -144,7 +145,8 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:background="@color/greyLight">
 
             <TextView
                 android:id="@+id/textView3"
@@ -153,7 +155,8 @@
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:text="@string/settings"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/greyDark"/>
 
             <ScrollView
                 android:layout_width="match_parent"

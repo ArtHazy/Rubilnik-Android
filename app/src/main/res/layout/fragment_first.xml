@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.first.FirstFragment"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:text="@string/nick"
+        style="@style/textMainAll"/>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:hint="@string/enter_name"
+        android:textColorHint="@color/greyHint"
+        style="@style/textMainEditText"/>
+
+    <TextView
+        android:id="@+id/txtSession"
+        style="@style/textMainAll"
+        android:text="@string/session"/>
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:hint="@string/enter_key"
+        android:textColorHint="@color/greyHint"
+        style="@style/textMainEditText"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/txtConnect"
+        android:background="@drawable/btn_state"
+        style="@style/btn"
+        android:text="@string/connect"
+        android:layout_marginTop="36dp"
+
+        />
+
+</LinearLayout>

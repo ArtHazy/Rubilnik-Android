@@ -3,4 +3,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="component_color">#33ECECEC</color>
+
+    <color name="greyHint">#525252</color>
+
+    <color name="greyLight">#B0B0B0</color>
+    <color name="greyDark">#242424</color>
+    <color name="cineDark">#065452</color>
+    <color name="yellow">#D6BF81</color>
+    <color name="cineLight">#0FD4CD</color>
+    <color name="pink">#D6768E</color>
+
+    //colors for button
+    <color name="btnColorGreen">#709B95</color>
+    <color name="btnColorOrange">#F08A5D</color>
+    <color name="btnColorRed">#B83B5E</color>
+    <color name="btnColorWhite">#D9D9D9</color>
+    <color name="btnColorGreenDark">#3B765A</color>
+    <color name="btnColorBrownLight">#898176</color>
 </resources>
