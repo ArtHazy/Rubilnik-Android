@@ -29,17 +29,11 @@
         android:textColorHint="@color/greyHint"
         style="@style/textMainEditText"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/txtConnect"
         android:background="@drawable/btn_state"
         style="@style/btn"
         android:text="@string/connect"
-        android:layout_marginTop="36dp"
-
-        />
+        android:layout_marginTop="72dp" />
 
 </LinearLayout>

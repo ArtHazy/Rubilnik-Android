@@ -1,6 +1,9 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Rubilnik" parent="Theme.Material3.DayNight.NoActionBar"/>
+    <style name="Base.Theme.Rubilnik" parent="Theme.Material3.DayNight.NoActionBar">
+<!--        <item name="colorControlHighlight">@color/cineLight</item> //выделение кнопки-->
+        <item name="android:statusBarColor">@color/greyDark</item> //статус бар (сверху)
+    </style>
 
     <style name="Theme.Rubilnik" parent="Base.Theme.Rubilnik" />
 </resources>

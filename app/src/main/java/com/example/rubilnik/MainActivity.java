@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.rubilnik.databinding.ActivityMainBinding;
 import com.example.rubilnik.screens.first.FirstFragment;
 import com.example.rubilnik.screens.second.SecondFragment;
 import com.example.rubilnik.screens.third.ThirdFragment;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //        navController = Navigation.findNavController(this, R.id.nav_controller_view_tag);
 
 
-        bottomNavigationView = findViewById(R.id.menuBottom);
+
 //        NavigationView navigationView = findViewById(R.id.na);
 //
 //        if (savedInstanceState == null) {
@@ -56,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 //            navigationView.setCheckedItem(R.id.item1);
 //        }
 
+
+        bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
 
         bottomNavigationView.setBackground(null);
