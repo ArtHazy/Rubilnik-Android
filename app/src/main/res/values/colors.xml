@@ -12,6 +12,7 @@
     <color name="yellow">#D6BF81</color>
     <color name="cineLight">#0FD4CD</color>
     <color name="pink">#D6768E</color>
+    <color name="cineBottomBar">#44A9A6</color>
 
     //colors for button
     <color name="btnColorGreen">#709B95</color>

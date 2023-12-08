@@ -59,7 +59,7 @@
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/menu_bottom"
-        app:itemIconTint="@color/greyLight"
-        app:itemRippleColor="@color/btnColorGreen"
-        app:itemActiveIndicatorStyle="@android:color/transparent"/>
+        app:itemIconTint="@drawable/bottom_navigation_bar_activity"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemRippleColor="@android:color/transparent"/>
 </LinearLayout>
