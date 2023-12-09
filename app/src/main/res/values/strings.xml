@@ -12,6 +12,7 @@
     <string name="enter_name">ENTER NAME</string>
     <string name="enter_key">ENTER KEY</string>
     <string name="username">USERNAME</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">PROFILE</string>
+    <string name="music">MUSIC</string>
+    <string name="feedback">FEEDBACK</string>
 </resources>

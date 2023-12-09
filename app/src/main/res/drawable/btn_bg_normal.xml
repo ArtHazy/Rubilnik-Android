@@ -2,7 +2,7 @@
     <corners
         android:radius="5dp" />
     <size
-        android:height="60dp"
+        android:height="70dp"
         android:width="215dp"/>
     <stroke
         android:width="2dp"

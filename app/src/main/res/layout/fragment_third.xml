@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.third.ThirdFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.third.ThirdFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        <TextView
+            android:text="@string/settings"
+            style="@style/textMainRub"/>
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/txtMusic"
+            android:text="@string/music"
+            style="@style/textMainAll"/>
+
+        <Switch
+            android:id="@+id/swMusic"
+            style="@style/swOnOff"/>
+
+        <TextView
+            android:id="@+id/txtSound"
+            android:text="@string/sound"
+            style="@style/textMainAll"/>
+
+        <Switch
+            android:id="@+id/swSound"
+            style="@style/swOnOff"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/txtFeedback"
+            style="@style/btn"
+            android:text="@string/feedback"
+            android:layout_marginTop="72dp" />
+
+</LinearLayout>

@@ -12,6 +12,7 @@
     <string name="enter_name">ВВЕДИТЕ ИМЯ</string>
     <string name="enter_key">ВВЕДИТЕ КЛЮЧ</string>
     <string name="username">ИМЯ ПОЛЬЗОВАТЕЛЯ</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Привет бланк фрагмент</string>
+    <string name="profile">ПРОФИЛЬ</string>
+    <string name="music">МУЗЫКА</string>
+    <string name="feedback">СВЯЗАТЬСЯ</string>
 </resources>

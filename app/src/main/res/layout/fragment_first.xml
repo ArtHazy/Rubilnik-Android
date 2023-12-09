@@ -7,6 +7,21 @@
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/txtRub">
+            <TextView
+                android:text="@string/app_name1"
+                style="@style/textMainRub"/>
+            <TextView
+                android:text="@string/app_name2"
+                style="@style/textMainRub"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/yellow"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtName"
         android:text="@string/nick"
@@ -15,7 +30,6 @@
     <EditText
         android:id="@+id/editTextName"
         android:hint="@string/enter_name"
-        android:textColorHint="@color/greyHint"
         style="@style/textMainEditText"/>
 
     <TextView
@@ -26,14 +40,12 @@
     <EditText
         android:id="@+id/editTextText"
         android:hint="@string/enter_key"
-        android:textColorHint="@color/greyHint"
         style="@style/textMainEditText"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/txtConnect"
-        android:background="@drawable/btn_state"
         style="@style/btn"
         android:text="@string/connect"
-        android:layout_marginTop="72dp" />
+        android:layout_marginTop="72dp"/>
 
 </LinearLayout>

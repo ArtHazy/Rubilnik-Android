@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
+        //bottomNavigationView.setItemRippleEffectRadius(16);
+        //bottomNavigationView.setCameraDistance(25);
 
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setOnItemSelectedListener(item -> {
