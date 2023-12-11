@@ -27,10 +27,15 @@
         android:text="@string/nick"
         style="@style/textMainAll"/>
 
-    <EditText
-        android:id="@+id/editTextName"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/usernameButton"
         android:hint="@string/enter_name"
         style="@style/textMainEditText"/>
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextName"-->
+<!--        android:hint="@string/enter_name"-->
+<!--        style="@style/textMainEditText"/>-->
 
     <TextView
         android:id="@+id/txtSession"
@@ -40,7 +45,12 @@
     <EditText
         android:id="@+id/editTextText"
         android:hint="@string/enter_key"
-        style="@style/textMainEditText"/>
+        style="@style/textMainEditText"
+        android:imeOptions="flagForceAscii"
+        android:maxLength="4"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/txtConnect"

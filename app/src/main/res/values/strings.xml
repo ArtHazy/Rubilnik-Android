@@ -15,4 +15,8 @@
     <string name="profile">PROFILE</string>
     <string name="music">MUSIC</string>
     <string name="feedback">FEEDBACK</string>
+    <string name="question">QUESTION\u00A0</string>
+
+    <string name="numQuestion">1</string>
+    <string name="textQuestion">HOW ARE YOU?</string>
 </resources>

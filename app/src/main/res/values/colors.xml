@@ -24,4 +24,14 @@
     <color name="btnColorWhite">#D9D9D9</color>
     <color name="btnColorGreenDark">#3B765A</color>
     <color name="btnColorBrownLight">#898176</color>
+
+    //array for btnChoice
+    <array name="choiceColor">
+        <item>@color/btnColorGreen</item>
+        <item>@color/btnColorOrange</item>
+        <item>@color/btnColorRed</item>
+        <item>@color/btnColorWhite</item>
+        <item>@color/btnColorGreenDark</item>
+        <item>@color/btnColorBrownLight</item>
+    </array>
 </resources>

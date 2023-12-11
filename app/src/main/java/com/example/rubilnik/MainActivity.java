@@ -1,10 +1,19 @@
 package com.example.rubilnik;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
+
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,25 +26,27 @@ import com.example.rubilnik.screens.third.ThirdFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 
 public class MainActivity extends AppCompatActivity {
 
-//    TextView usernameTextView;
-//
-//    Button usernameButton;
-//    Button connectButton;
-//    ImageButton editUsernameImageButton;
-//
-//    LinearLayout settingsLinLay;
-//    LinearLayout settingsGroup;
-//    Context context;
-//
-//    EditText editText;
-//
-//    ActivityMainBinding binding;
-//    NavController navController;
+    TextView usernameTextView;
+
+    Button usernameButton;
+    Button connectButton;
+    ImageButton editUsernameImageButton;
+
+    LinearLayout settingsLinLay;
+    LinearLayout settingsGroup;
+    Context context;
+
+    EditText editText;
+
+    NavController navController;
     BottomNavigationView bottomNavigationView;
+
+//    private ListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
 //            navigationView.setCheckedItem(R.id.item1);
 //        }
 
-
+//        //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
-        //bottomNavigationView.setItemRippleEffectRadius(16);
-        //bottomNavigationView.setCameraDistance(25);
 
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -72,57 +81,21 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ThirdFragment());
             return true;
         });
-    }
 
-    private  void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
-
-
-
-//        setContentView(R.layout.profile);
+//        NavController navController = NavHostFragment.findNavController(this);
+//        NavBackStackEntry backStackEntry = navController.getBackStackEntry(R.id.list_fragment);
 //
+//        viewModel = new ViewModelProvider(backStackEntry).get(ListViewModel.class);
+//        viewModel.getFilteredList().observe(getViewLifecycleOwner(), list -> {
+//            // Update the list UI.
+//        }
+    }
+
+
+//        //CODE
 //        context = this;
-//
-//        settingsLinLay = findViewById(R.id.settings_lin_lay);
-//
-//        ArrayList<View> settingsModules = new ArrayList<>();
-//
-//        ArrayList<View> settingViews1 = new ArrayList<>();
-//        settingViews1.add(new Switch(this));
-//        settingViews1.add(new Switch(this));
-//        settingViews1.add(new Switch(this));
-//        settingViews1.add(new Switch(this));
-//        settingViews1.add(new Switch(this));
-//        ArrayList<View> settingViews2 = new ArrayList<>();
-//        settingViews2.add(new Switch(this));
-//        ArrayList<View> settingViews3 = new ArrayList<>();
-//        settingViews3.add(new Switch(this));
-//        settingViews3.add(new Switch(this));
-//        CheckBox checkBox = new CheckBox(this);
-//        checkBox.setPadding(MyTools.dpToPx(this,40),0,0,0);
-//        settingViews3.add(checkBox);
-//
-//        settingsGroup = MyTools.customListFormat(settingViews1,this,true, MyTools.dpToPx(this, 2),true);
-//        settingsModules.add(settingsGroup);
-//        settingsGroup = MyTools.customListFormat(settingViews2,this,true, MyTools.dpToPx(this, 2),true);
-//        settingsModules.add(settingsGroup);
-//        settingsGroup = MyTools.customListFormat(settingViews3,this,true,MyTools.dpToPx(this, 2),true);
-//        settingsModules.add(settingsGroup);
-//
-//        settingsGroup = MyTools.customListFormat(settingsModules,this,false,MyTools.dpToPx(this, 10),false);
-//
-//        settingsLinLay.addView(settingsGroup);
-//
-//
-//
-//
-//
-//
-//        usernameButton = findViewById(R.id.usernameButton);
+//        Fragment mainFragment = getFragmentManager();
+//        usernameButton = (Button) getFragmentManager().findViewById(R.id.usernameButton);
 //        connectButton = findViewById(R.id.connectRoomButton);
 //
 //        usernameButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 //                http.execute();
 //            }
 //        });
-
+//
 //        editText.addTextChangedListener(new TextWatcher() {
 //
 //            @Override
@@ -160,12 +133,59 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+
 //    }
-//
+
 //    @Override
 //    public void getStringFromDialog(String value) {
 //        usernameButton.setText(value);
 //    }
 
+    private  void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+//        setContentView(R.layout.profile);
+
+
+
+//        settingsLinLay = findViewById(R.id.settings_lin_lay);
+
+//        ArrayList<View> settingsModules = new ArrayList<>();
+
+//        ArrayList<View> settingViews1 = new ArrayList<>();
+//        settingViews1.add(new Switch(this));
+//        settingViews1.add(new Switch(this));
+//        settingViews1.add(new Switch(this));
+//        settingViews1.add(new Switch(this));
+//        settingViews1.add(new Switch(this));
+//        ArrayList<View> settingViews2 = new ArrayList<>();
+//        settingViews2.add(new Switch(this));
+//        ArrayList<View> settingViews3 = new ArrayList<>();
+//        settingViews3.add(new Switch(this));
+//        settingViews3.add(new Switch(this));
+//        CheckBox checkBox = new CheckBox(this);
+//        checkBox.setPadding(MyTools.dpToPx(this,40),0,0,0);
+//        settingViews3.add(checkBox);
+
+//        settingsGroup = MyTools.customListFormat(settingViews1,this,true, MyTools.dpToPx(this, 2),true);
+//        settingsModules.add(settingsGroup);
+//        settingsGroup = MyTools.customListFormat(settingViews2,this,true, MyTools.dpToPx(this, 2),true);
+//        settingsModules.add(settingsGroup);
+//        settingsGroup = MyTools.customListFormat(settingViews3,this,true,MyTools.dpToPx(this, 2),true);
+//        settingsModules.add(settingsGroup);
+//
+//        settingsGroup = MyTools.customListFormat(settingsModules,this,false,MyTools.dpToPx(this, 10),false);
+//
+//        settingsLinLay.addView(settingsGroup);
 
 }

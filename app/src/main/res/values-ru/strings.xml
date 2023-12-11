@@ -15,4 +15,8 @@
     <string name="profile">ПРОФИЛЬ</string>
     <string name="music">МУЗЫКА</string>
     <string name="feedback">СВЯЗАТЬСЯ</string>
+    <string name="question">ВОПРОС\u00A0</string>
+
+    <string name="numQuestion">1</string>
+    <string name="textQuestion">КАК ТВОИ ДЕЛА?</string>
 </resources>
