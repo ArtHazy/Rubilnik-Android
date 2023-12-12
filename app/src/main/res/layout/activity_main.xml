@@ -11,10 +11,11 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:navGraph="@navigation/graph_navigation"/>
 
 <!--    <fragment-->
-<!--        android:id="@+id/nav_controller_view_tag"-->
+<!--        android:id="@+id/frame_layout"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        app:navGraph="@navigation/graph_navigation"-->
@@ -24,7 +25,7 @@
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,7 +37,6 @@
         app:itemIconSize="38dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/menu_bottom"
         app:itemIconTint="@drawable/bottom_navigation_bar_activity"

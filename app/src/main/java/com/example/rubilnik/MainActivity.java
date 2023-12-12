@@ -28,6 +28,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ThirdFragment());
             return true;
         });
+
 
 //        NavController navController = NavHostFragment.findNavController(this);
 //        NavBackStackEntry backStackEntry = navController.getBackStackEntry(R.id.list_fragment);

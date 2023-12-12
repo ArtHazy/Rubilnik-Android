@@ -18,7 +18,7 @@
             <TextView
                 android:text="@string/app_name2"
                 style="@style/textMainRub"
-                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
                 android:textColor="@color/yellow"/>
     </LinearLayout>
 
@@ -30,7 +30,8 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/usernameButton"
         android:hint="@string/enter_name"
-        style="@style/textMainEditText"/>
+        style="@style/textMainEditText"
+        android:textColorHint="@color/greyHint"/>
 
 <!--    <EditText-->
 <!--        android:id="@+id/editTextName"-->
@@ -47,10 +48,13 @@
         android:hint="@string/enter_key"
         style="@style/textMainEditText"
         android:imeOptions="flagForceAscii"
+
+        android:textColorHint="@color/greyHint"
         android:maxLength="4"
         android:clickable="true"
         android:focusableInTouchMode="true"
-        android:focusable="true" />
+        android:focusable="true"
+        android:autofillHints=""/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/txtConnect"
