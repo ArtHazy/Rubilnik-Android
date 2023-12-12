@@ -19,4 +19,11 @@
 
     <string name="numQuestion">1</string>
     <string name="textQuestion">КАК ТВОИ ДЕЛА?</string>
+
+    <string name="ratingPos">МЕСТО</string>
+    <string name="txtRatingPosInfo">1</string>
+    <string name="txtRightAnswers">ПРАВИЛЬНЫХ ОТВЕТОВ</string>
+    <string name="txtRightAnswersInfo">1</string>
+    <string name="btnReturn">ВЕРНУТЬСЯ</string>
+    <string name="result">ИТОГ</string>
 </resources>

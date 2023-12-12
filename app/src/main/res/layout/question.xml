@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/greyLight">
+    android:background="@drawable/bg">
 
     <LinearLayout
         android:layout_marginTop="30dp"
@@ -11,16 +11,16 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:id="@+id/txtRub"
-        android:gravity="left|center"
+        android:gravity="start|center"
         android:background="@color/greyDark">
         <TextView
             android:text="@string/question"
-            style="@style/textMainRub"
+            style="@style/textMainAll"
             android:layout_marginTop="0dp"
             android:textColor="@color/yellow"/>
         <TextView
             android:text="@string/numQuestion"
-            style="@style/textMainRub"
+            style="@style/textMainAll"
             android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
             android:textColor="@color/yellow"/>

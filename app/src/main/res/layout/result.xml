@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/greyDark">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/txtRub">
+            <TextView
+                android:text="@string/result"
+                style="@style/textMainRub"/>
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtRatingPos"
+        android:text="@string/ratingPos"
+        style="@style/textMainAll"/>
+
+    <TextView
+        android:id="@+id/txtRatingPosInfo"
+        android:text="@string/txtRatingPosInfo"
+        style="@style/textMainEditText"/>
+
+    <TextView
+        android:id="@+id/txtRightAnswers"
+        style="@style/textMainAll"
+        android:text="@string/txtRightAnswers"/>
+
+    <TextView
+        android:id="@+id/txtRightAnswersInfo"
+        android:text="@string/txtRightAnswersInfo"
+        style="@style/textMainEditText"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnReturn"
+        style="@style/btn"
+        android:text="@string/btnReturn"
+        android:layout_marginTop="72dp"/>
+
+</LinearLayout>

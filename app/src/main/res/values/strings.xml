@@ -19,4 +19,10 @@
 
     <string name="numQuestion">1</string>
     <string name="textQuestion">HOW ARE YOU?</string>
+    <string name="ratingPos">POSITION</string>
+    <string name="txtRatingPosInfo">1</string>
+    <string name="txtRightAnswers">RIGHT ANSWERS</string>
+    <string name="txtRightAnswersInfo">1</string>
+    <string name="btnReturn">RETURN</string>
+    <string name="result">RESULT</string>
 </resources>
