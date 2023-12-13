@@ -55,7 +55,8 @@
                 style="@style/btnChoice"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnChoice4"
-                style="@style/btnChoice"/>
+                style="@style/btnChoice"
+                android:textColor="@color/greyDark"/>
 
     </LinearLayout>
 
