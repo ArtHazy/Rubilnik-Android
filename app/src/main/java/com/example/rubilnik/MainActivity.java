@@ -4,12 +4,14 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -27,6 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import java.util.Objects;
 
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
+    Button btnConnect;
+
 //    private ListViewModel viewModel;
 
     @Override
@@ -68,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
 //            navigationView.setCheckedItem(R.id.item1);
 //        }
 
+        //btnConnect = findViewById(R.id.menuBottom);
 //        //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
 
-        bottomNavigationView.setBackground(null);
+//        bottomNavigationView.setBackground(null);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.item1)
@@ -83,6 +91,38 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ThirdFragment());
             return true;
         });
+
+
+//        ((TextView) Objects.requireNonNull(frag1.getView()).findViewById(R.id.txtSession))
+//                .setText("Access to Fragment 1 from Activity");
+
+//        NavHostFragment navHostFragment =
+//                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.graph_navigation);
+//        NavController navController = navHostFragment.getNavController();
+//        NavHostFragment.findNavController(Fragment)
+//        Navigation.findNavController(Activity, @IdRes int viewId)
+//        Navigation.findNavController(View)
+//        @Override
+//        public void onClick(View view) {
+//            NavDirections action =
+//                    SpecifyAmountFragmentDirections
+//                            .actionSpecifyAmountFragmentToConfirmationFragment();
+//            Navigation.findNavController(view).navigate(action);
+//        }
+
+//        FragmentManager supportFragmentManager = null;
+//        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.frame_layout);
+//        NavController navController = navHostFragment.getNavController();
+//        BottomNavigationView bottomNav = findViewById(R.id.menuBottom);
+//        NavigationUI.setupWithNavController(bottomNav, navController);
+
+//        AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(
+//                R.id.item1,
+//                R.id.item2,
+//                R.id.item3));
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navView.setupWithNavController(navController)
+
 
 
 //        NavController navController = NavHostFragment.findNavController(this);
@@ -155,6 +195,18 @@ public class MainActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+//    btnConnect.setOnclicklistner(new View.OnClickLisitner(){
+    public void OnClick(View v){
+//        android.app.Fragment frag1 = getFragmentManager().findFragmentById(R.id.item1);
+//        ((TextView) frag1.getView().findViewById(R.id.txtSession))
+//                .setText("123");
+    }
+//    public void onClick(View v) {
+//        android.app.Fragment frag2 = getFragmentManager().findFragmentById(R.id.item1);
+//        ((TextView) frag2.getView().findViewById(R.id.textView))
+//            .setText("Access to Fragment 2 from Activity");
+//    }
 
 
 //        setContentView(R.layout.profile);

@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txtQuestion"
             android:text="@string/textQuestion"
             style="@style/textRegular"
             android:layout_gravity="center"/>

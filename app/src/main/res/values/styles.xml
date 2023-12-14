@@ -36,7 +36,7 @@
         <item name="fontFamily">@font/font</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:color">@color/greyDark</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>

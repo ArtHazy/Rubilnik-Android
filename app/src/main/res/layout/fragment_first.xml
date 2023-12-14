@@ -44,7 +44,7 @@
         android:text="@string/session"/>
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editTextKey"
         android:hint="@string/enter_key"
         style="@style/textMainEditText"
         android:imeOptions="flagForceAscii"
@@ -57,9 +57,9 @@
         android:autofillHints=""/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/txtConnect"
+        android:id="@+id/btnConnect"
         style="@style/btn"
-        android:text="@string/connect"
-        android:layout_marginTop="72dp"/>
+        android:layout_marginTop="72dp"
+        android:text="@string/connect" />
 
 </LinearLayout>
