@@ -1,6 +1,8 @@
 package com.example.rubilnik;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+import static androidx.core.graphics.drawable.DrawableCompat.inflate;
+import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,13 +16,16 @@ import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rubilnik.screens.first.FirstFragment;
 import com.example.rubilnik.screens.second.SecondFragment;
@@ -32,23 +37,20 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
+import java.io.Console;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    TextView usernameTextView;
-
-    Button usernameButton;
-    Button connectButton;
-    ImageButton editUsernameImageButton;
-
-    LinearLayout settingsLinLay;
-    LinearLayout settingsGroup;
-    Context context;
-
-    EditText editText;
-
+    public Socket mSocket;
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
@@ -60,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //NAVIGATION
+        try {
+            mSocket = IO.socket("http://10.0.2.2:3000");
+            Toast.makeText(this, mSocket.toString(), Toast.LENGTH_SHORT).show();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        // Register event handlers
+        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        mSocket.on("myEvent", onMyEvent);
+
+
 
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
@@ -79,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
 
-//        bottomNavigationView.setBackground(null);
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.item1)
@@ -91,47 +104,48 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ThirdFragment());
             return true;
         });
+    }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int[] scrcoords = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
-//        ((TextView) Objects.requireNonNull(frag1.getView()).findViewById(R.id.txtSession))
-//                .setText("Access to Fragment 1 from Activity");
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
 
-//        NavHostFragment navHostFragment =
-//                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.graph_navigation);
-//        NavController navController = navHostFragment.getNavController();
-//        NavHostFragment.findNavController(Fragment)
-//        Navigation.findNavController(Activity, @IdRes int viewId)
-//        Navigation.findNavController(View)
-//        @Override
-//        public void onClick(View view) {
-//            NavDirections action =
-//                    SpecifyAmountFragmentDirections
-//                            .actionSpecifyAmountFragmentToConfirmationFragment();
-//            Navigation.findNavController(view).navigate(action);
-//        }
+    ///////
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Connected to the server
+        }
+    };
 
-//        FragmentManager supportFragmentManager = null;
-//        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.frame_layout);
-//        NavController navController = navHostFragment.getNavController();
-//        BottomNavigationView bottomNav = findViewById(R.id.menuBottom);
-//        NavigationUI.setupWithNavController(bottomNav, navController);
+    private Emitter.Listener onMyEvent = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
 
-//        AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.item1,
-//                R.id.item2,
-//                R.id.item3));
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
-
-
-
-//        NavController navController = NavHostFragment.findNavController(this);
-//        NavBackStackEntry backStackEntry = navController.getBackStackEntry(R.id.list_fragment);
-//
-//        viewModel = new ViewModelProvider(backStackEntry).get(ListViewModel.class);
-//        viewModel.getFilteredList().observe(getViewLifecycleOwner(), list -> {
-//            // Update the list UI.
-//        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSocket.disconnect();
     }
 
 
@@ -182,30 +196,6 @@ public class MainActivity extends AppCompatActivity {
 //    @Override
 //    public void getStringFromDialog(String value) {
 //        usernameButton.setText(value);
-//    }
-
-    private  void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-//    btnConnect.setOnclicklistner(new View.OnClickLisitner(){
-    public void OnClick(View v){
-//        android.app.Fragment frag1 = getFragmentManager().findFragmentById(R.id.item1);
-//        ((TextView) frag1.getView().findViewById(R.id.txtSession))
-//                .setText("123");
-    }
-//    public void onClick(View v) {
-//        android.app.Fragment frag2 = getFragmentManager().findFragmentById(R.id.item1);
-//        ((TextView) frag2.getView().findViewById(R.id.textView))
-//            .setText("Access to Fragment 2 from Activity");
 //    }
 
 

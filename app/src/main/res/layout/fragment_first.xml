@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/txtRub">
-            <TextView
-                android:text="@string/app_name1"
-                style="@style/textMainRub"/>
-            <TextView
-                android:text="@string/app_name2"
-                style="@style/textMainRub"
-                android:layout_marginStart="0dp"
-                android:textColor="@color/yellow"/>
+        <TextView
+            android:text="@string/app_name1"
+            style="@style/textMainRub"/>
+        <TextView
+            android:text="@string/app_name2"
+            style="@style/textMainRub"
+            android:layout_marginStart="0dp"
+            android:textColor="@color/yellow"/>
     </LinearLayout>
 
     <TextView
@@ -27,16 +27,25 @@
         android:text="@string/nick"
         style="@style/textMainAll"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/usernameButton"
-        android:hint="@string/enter_name"
-        style="@style/textMainEditText"
-        android:textColorHint="@color/greyHint"/>
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextName"-->
+    <!--        android:hint="@string/enter_name"-->
+    <!--        style="@style/textMainEditText"/>-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/editTextName"-->
-<!--        android:hint="@string/enter_name"-->
-<!--        style="@style/textMainEditText"/>-->
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/textMainEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:autofillHints=""
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/enter_name"
+        android:imeOptions="flagForceAscii"
+        android:maxLength="12"
+        android:textColorHint="@color/greyHint" />
 
     <TextView
         android:id="@+id/txtSession"
