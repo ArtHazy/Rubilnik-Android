@@ -1,6 +1,8 @@
 package com.example.rubilnik;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+import static androidx.core.graphics.drawable.DrawableCompat.inflate;
+import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,7 +16,9 @@ import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +36,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,32 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnConnect;
 
-//    private ListViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        navController = Navigation.findNavController(this, R.id.nav_controller_view_tag);
-
-
-
-//        NavigationView navigationView = findViewById(R.id.na);
-//
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Fragment()).commit();
-//            navigationView.setCheckedItem(R.id.item1);
-//        }
-
-        //btnConnect = findViewById(R.id.menuBottom);
-//        //NAVIGATION
+        //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new FirstFragment());
-
-//        bottomNavigationView.setBackground(null);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -91,47 +80,27 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ThirdFragment());
             return true;
         });
+    }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int[] scrcoords = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
-//        ((TextView) Objects.requireNonNull(frag1.getView()).findViewById(R.id.txtSession))
-//                .setText("Access to Fragment 1 from Activity");
-
-//        NavHostFragment navHostFragment =
-//                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.graph_navigation);
-//        NavController navController = navHostFragment.getNavController();
-//        NavHostFragment.findNavController(Fragment)
-//        Navigation.findNavController(Activity, @IdRes int viewId)
-//        Navigation.findNavController(View)
-//        @Override
-//        public void onClick(View view) {
-//            NavDirections action =
-//                    SpecifyAmountFragmentDirections
-//                            .actionSpecifyAmountFragmentToConfirmationFragment();
-//            Navigation.findNavController(view).navigate(action);
-//        }
-
-//        FragmentManager supportFragmentManager = null;
-//        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.frame_layout);
-//        NavController navController = navHostFragment.getNavController();
-//        BottomNavigationView bottomNav = findViewById(R.id.menuBottom);
-//        NavigationUI.setupWithNavController(bottomNav, navController);
-
-//        AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.item1,
-//                R.id.item2,
-//                R.id.item3));
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
-
-
-
-//        NavController navController = NavHostFragment.findNavController(this);
-//        NavBackStackEntry backStackEntry = navController.getBackStackEntry(R.id.list_fragment);
-//
-//        viewModel = new ViewModelProvider(backStackEntry).get(ListViewModel.class);
-//        viewModel.getFilteredList().observe(getViewLifecycleOwner(), list -> {
-//            // Update the list UI.
-//        }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 
 
@@ -182,30 +151,6 @@ public class MainActivity extends AppCompatActivity {
 //    @Override
 //    public void getStringFromDialog(String value) {
 //        usernameButton.setText(value);
-//    }
-
-    private  void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-//    btnConnect.setOnclicklistner(new View.OnClickLisitner(){
-    public void OnClick(View v){
-//        android.app.Fragment frag1 = getFragmentManager().findFragmentById(R.id.item1);
-//        ((TextView) frag1.getView().findViewById(R.id.txtSession))
-//                .setText("123");
-    }
-//    public void onClick(View v) {
-//        android.app.Fragment frag2 = getFragmentManager().findFragmentById(R.id.item1);
-//        ((TextView) frag2.getView().findViewById(R.id.textView))
-//            .setText("Access to Fragment 2 from Activity");
 //    }
 
 
