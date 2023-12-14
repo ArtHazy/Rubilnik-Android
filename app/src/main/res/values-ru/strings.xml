@@ -26,4 +26,5 @@
     <string name="txtRightAnswersInfo">1</string>
     <string name="btnReturn">ВЕРНУТЬСЯ</string>
     <string name="result">ИТОГ</string>
+    <string name="download">ЗАГРУЗКА</string>
 </resources>

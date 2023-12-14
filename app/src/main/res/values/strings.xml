@@ -25,4 +25,5 @@
     <string name="txtRightAnswersInfo">1</string>
     <string name="btnReturn">RETURN</string>
     <string name="result">RESULT</string>
+    <string name="download">DOWNLOAD</string>
 </resources>

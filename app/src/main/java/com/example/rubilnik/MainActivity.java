@@ -1,65 +1,26 @@
 package com.example.rubilnik;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-import static androidx.core.graphics.drawable.DrawableCompat.inflate;
-import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.NavController;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.rubilnik.screens.first.FirstFragment;
-import com.example.rubilnik.screens.second.SecondFragment;
-import com.example.rubilnik.screens.third.ThirdFragment;
+import com.example.rubilnik.screens.MainFragment;
+import com.example.rubilnik.screens.AccountFragment;
+import com.example.rubilnik.screens.SettingsFragment;
+import com.example.rubilnik.screens.WaitingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    TextView usernameTextView;
-
-    Button usernameButton;
-    Button connectButton;
-    ImageButton editUsernameImageButton;
-
-    LinearLayout settingsLinLay;
-    LinearLayout settingsGroup;
-    Context context;
-
-    EditText editText;
-
-    NavController navController;
     BottomNavigationView bottomNavigationView;
-
-    Button btnConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
-        replaceFragment(new FirstFragment());
+        replaceFragment(new MainFragment());
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.item1)
-                replaceFragment(new FirstFragment());
-            else if (id == R.id.item2)
-                replaceFragment(new SecondFragment());
-            else if (id == R.id.item3)
-                replaceFragment(new ThirdFragment());
+            if (id == R.id.main)
+                replaceFragment(new MainFragment());
+            else if (id == R.id.waiting)
+                replaceFragment(new WaitingFragment());
+            else if (id == R.id.settings)
+                replaceFragment(new SettingsFragment());
             return true;
         });
     }

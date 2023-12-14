@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/graph_navigation"
-    app:startDestination="@id/item1">
+    app:startDestination="@id/main">
 
     <fragment
-        android:id="@+id/item1"
-        android:name="com.example.rubilnik.screens.first.FirstFragment"
-        android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
+        android:id="@+id/main"
+        android:name="com.example.rubilnik.screens.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" />
     <fragment
-        android:id="@+id/item2"
-        android:name="com.example.rubilnik.screens.second.SecondFragment"
-        android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
+        android:id="@+id/waiting"
+        android:name="com.example.rubilnik.screens.WaitingFragment"
+        android:label="waiting_fragment"
+        tools:layout="@layout/waiting_fragment" />
     <fragment
-        android:id="@+id/item3"
-        android:name="com.example.rubilnik.screens.third.ThirdFragment"
-        android:label="fragment_third"
-        tools:layout="@layout/fragment_third" />
+        android:id="@+id/settings"
+        android:name="com.example.rubilnik.screens.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
 </navigation>

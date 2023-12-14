@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screens.third.ThirdFragment"
-    android:orientation="vertical">
+    tools:context=".screens.SettingsFragment"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
 
         <TextView
+            android:id="@+id/txtSettings"
             android:text="@string/settings"
             style="@style/textMainRub"/>
 
@@ -18,7 +19,8 @@
 
         <Switch
             android:id="@+id/swMusic"
-            style="@style/swOnOff"/>
+            style="@style/swOnOff"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
             android:id="@+id/txtSound"
@@ -27,10 +29,11 @@
 
         <Switch
             android:id="@+id/swSound"
-            style="@style/swOnOff"/>
+            style="@style/swOnOff"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/txtFeedback"
+            android:id="@+id/btnFeedback"
             style="@style/btn"
             android:text="@string/feedback"
             android:layout_marginTop="72dp" />

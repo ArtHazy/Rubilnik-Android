@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.second.SecondFragment">
+    tools:context=".screens.AccountFragment">
 
     <TextView
+        android:id="@+id/txtProfile"
         android:text="@string/profile"
         style="@style/textMainRub"/>
 
