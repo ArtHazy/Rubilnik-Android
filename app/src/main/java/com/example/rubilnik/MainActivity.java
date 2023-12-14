@@ -76,23 +76,7 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on("myEvent", onMyEvent);
 
-
-
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        navController = Navigation.findNavController(this, R.id.nav_controller_view_tag);
-
-
-
-//        NavigationView navigationView = findViewById(R.id.na);
-//
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Fragment()).commit();
-//            navigationView.setCheckedItem(R.id.item1);
-//        }
-
-        //btnConnect = findViewById(R.id.menuBottom);
-//        //NAVIGATION
+        //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new MainFragment());
 
@@ -143,27 +127,6 @@ public class MainActivity extends AppCompatActivity {
             // Handle "myEvent" event
         }
     };
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        View view = getCurrentFocus();
-        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
-            int[] scrcoords = new int[2];
-            view.getLocationOnScreen(scrcoords);
-            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
-            float y = ev.getRawY() + view.getTop() - scrcoords[1];
-            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
-                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
 
     @Override
     protected void onDestroy() {
