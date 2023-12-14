@@ -1,21 +1,16 @@
 package com.example.rubilnik.screens;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.example.rubilnik.R;
-
-import java.util.Objects;
 
 public class WaitingFragment extends Fragment {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
