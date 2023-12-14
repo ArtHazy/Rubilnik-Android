@@ -39,6 +39,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
+    Context context = this;
+
     Button btnConnect;
 
 //    private ListViewModel viewModel;
@@ -68,13 +73,23 @@ public class MainActivity extends AppCompatActivity {
         //NAVIGATION
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
-            Toast.makeText(this, mSocket.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         // Register event handlers
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on("myEvent", onMyEvent);
+        mSocket.on("joined", onJoined);
+        mSocket.on("join", onJoin);
+        mSocket.on("start", onStart);
+        mSocket.on("next", onNext);
+        mSocket.on("reveal", onReveal);
+        mSocket.on("end", onEnd);
+        mSocket.on("bark", onBark);
+
+
+
 
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
@@ -124,6 +139,68 @@ public class MainActivity extends AppCompatActivity {
     private Emitter.Listener onMyEvent = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onJoined = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onJoin = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onStart = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onNext = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onReveal = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private Emitter.Listener onEnd = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // Handle "myEvent" event
+        }
+    };
+
+    private void alert(String s){
+        Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+    }
+
+    private Emitter.Listener onBark = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+
+            JSONObject data = (JSONObject) args[0];
+            String msg;
+            try {
+                msg = data.getString("msg");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            //alert(msg);
             // Handle "myEvent" event
         }
     };
