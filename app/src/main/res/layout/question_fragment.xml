@@ -40,24 +40,29 @@
 
 
     <LinearLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@color/greyDark"
-        android:orientation="horizontal"
-        android:gravity="center">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoice1"
-                style="@style/btnChoice"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoice2"
-                style="@style/btnChoice"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoice3"
-                style="@style/btnChoice"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoice4"
-                style="@style/btnChoice"
-                android:textColor="@color/greyDark"/>
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice1"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice2"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice3"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice4"
+            style="@style/btnChoice"
+            android:textColor="@color/greyDark" />
 
     </LinearLayout>
 
