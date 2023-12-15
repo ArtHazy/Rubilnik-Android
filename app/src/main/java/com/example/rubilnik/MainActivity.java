@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.rubilnik.screens.MainFragment;
 import com.example.rubilnik.screens.AccountFragment;
+import com.example.rubilnik.screens.QuestionFragment;
 import com.example.rubilnik.screens.SettingsFragment;
 import com.example.rubilnik.screens.WaitingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
