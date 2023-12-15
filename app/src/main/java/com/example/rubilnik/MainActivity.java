@@ -146,17 +146,12 @@ public class MainActivity extends AppCompatActivity {
             // Connected to the server
         }
     };
-
     private void alert(String s){
-        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();	        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
     }
-    String alertMessage;
-    Runnable alert = new Runnable(){
-        @Override
-        public void run() {
-            alert(alertMessage);
-        }
-    };
+//    //private void alert(String s){
+//        Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
+//    }
     private Emitter.Listener onJoined = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -166,26 +161,20 @@ public class MainActivity extends AppCompatActivity {
             try {
                 playerId = data.getString("playerId");
                 msg = data.getString("msg");
-            } catch (JSONException e) {
-                alertMessage = "exception";
-                runOnUiThread(alert);
-                Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
-            }
+            } catch (JSONException e) {MyTools.LogError(e);}
             if (playerId.length()>0) { // подключен успешно (переход на стр ожидания)
+                runOnUiThread(()->{alert("Connected to the room");});
                 userId = playerId;
                 replaceFragment(new WaitingFragment());
-                alertMessage = "connected to the room";
-                runOnUiThread(alert);
-                //Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
-                //alert("connected to the room");
+                //runOnUiThread(() -> {alert("connected to the room");});
             } else { // ошибка подключения (сообщение об ошибке)
                 currentRoomId = "";
-                alertMessage = playerId.toString(); //"failed to connect to the room"
-                runOnUiThread(alert);
+                runOnUiThread(() -> {alert("failed to connect");});
                 //alert("failed to connect to the room");
             }
         }
     };
+
 
     private Emitter.Listener onJoin = new Emitter.Listener() {
         @Override
@@ -216,8 +205,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject question = data.getJSONObject("question");
                 String text = question.getString("text");
                 JSONArray choices = question.getJSONArray("choices");
-                alertMessage = choices.toString();
-                runOnUiThread(alert);
                 replaceFragment(new QuestionFragment(text,choices));
             } catch (JSONException e) {
                 throw new RuntimeException(e);

@@ -63,8 +63,8 @@ public class MainFragment extends Fragment {
                     data.put("roomId",roomId);
                     data.put("userName",editTextUsername.getText().toString());
                     mSocket.emit("join",data);
-                    MainActivity.currentRoomId = roomId;
                     Toast.makeText(rootView.getContext(), "join sent", Toast.LENGTH_SHORT).show();
+                    MainActivity.currentRoomId = roomId;
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

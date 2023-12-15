@@ -9,18 +9,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MyTools {
-
-    public static class AlertRunOnUI implements Runnable {
-        String message;
-        AlertRunOnUI(String message){this.message=message;}
-        @Override
-        public void run() {
-            Toast.makeText(MainActivity.context,message,Toast.LENGTH_SHORT);
-        }
-    }
-
-
-
     public static void LogError(Exception e){
         Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
     }
@@ -29,7 +17,6 @@ public class MyTools {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round(dp * density);
     }
-
 
     public static LinearLayout customListFormat(ArrayList<View> elements, Context context, boolean useCustomBackground, int marginBetweenElements, boolean useDefaultElementsPadding) {
         LinearLayout linearLayout = new LinearLayout(context);
