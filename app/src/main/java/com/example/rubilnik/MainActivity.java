@@ -62,10 +62,11 @@ public class MainActivity extends AppCompatActivity {
     public Socket mSocket;
     static public String userId;
     static public String currentRoomId;
+    static public int currentQuestionInd;
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
-    Context context = MainActivity.this;
+    public static Context context;
 
     Button btnConnect;
 
@@ -75,15 +76,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = MainActivity.this;
 
         userId="";
         currentRoomId="";
+        currentQuestionInd=-1;
 
         //NAVIGATION
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
         } catch (URISyntaxException e) {
-            Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
+            MyTools.LogError(e);
+
         }
         // Register event handlers
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
@@ -206,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+            currentQuestionInd++;
             JSONObject data = (JSONObject) args[0];
             try {
                 JSONObject question = data.getJSONObject("question");
@@ -251,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
-            JSONArray scores;
+            JSONArray scores = new JSONArray();
             try {
                 scores = data.getJSONArray("scores");
             } catch (JSONException e) {

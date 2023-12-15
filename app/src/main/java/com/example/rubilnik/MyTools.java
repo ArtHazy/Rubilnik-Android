@@ -1,18 +1,29 @@
 package com.example.rubilnik;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Space;
-
-import androidx.appcompat.app.ActionBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class MyTools {
+
+    public static class AlertRunOnUI implements Runnable {
+        String message;
+        AlertRunOnUI(String message){this.message=message;}
+        @Override
+        public void run() {
+            Toast.makeText(MainActivity.context,message,Toast.LENGTH_SHORT);
+        }
+    }
+
+
+
+    public static void LogError(Exception e){
+        Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
+    }
 
     public static int dpToPx(Context context, int dp) {
         float density = context.getResources().getDisplayMetrics().density;

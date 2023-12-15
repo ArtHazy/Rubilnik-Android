@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.MainActivity;
+import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
 
 import org.json.JSONArray;
@@ -51,7 +52,10 @@ public class QuestionFragment extends Fragment {
 
             JSONObject choice;
             String text ="";
-            try { choice = choices.getJSONObject(i); text = choice.getString("text");} catch (JSONException e) {Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());}
+            try {
+                choice = choices.getJSONObject(i);
+                text = choice.getString("text");
+            } catch (JSONException e) {MyTools.LogError(e);}
             if (text.length()>0) { // if choice exists
                 choiceButton = new Button(rootView.getContext());
                 choiceButton.setTextAppearance(R.style.btnChoice);
@@ -63,6 +67,7 @@ public class QuestionFragment extends Fragment {
                     try {
                         data.put("roomId",MainActivity.currentRoomId);
                         data.put("userId",MainActivity.userId);
+                        data.put("questionInd",MainActivity.currentQuestionInd);
                         data.put("choiceInd",choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
                     mSocket.emit("choice", data);
