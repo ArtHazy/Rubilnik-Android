@@ -51,21 +51,24 @@ public class MainFragment extends Fragment {
         //usernameButton = rootView.findViewById(R.id.usernameButton);
         editTextKey = rootView.findViewById(R.id.editTextKey);
 
-        btnConnect.setOnClickListener((View v) ->
-                {
-                    mSocket.connect();
-                    JSONObject data = new JSONObject();
+        btnConnect.setOnClickListener((View v) ->{
+            mSocket.connect();
+            if (mSocket.connected()){
+                Toast.makeText(rootView.getContext(), "socket connected", Toast.LENGTH_SHORT).show();
+                JSONObject data = new JSONObject();
 
-                    try {
-                        data.put("roomId",editTextKey.getText().toString());
-                        data.put("userName",editTextUsername.getText().toString());
-                        mSocket.emit("join",data);
-                        Toast.makeText(rootView.getContext(), "hi", Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
+                try {
+                    data.put("roomId",editTextKey.getText().toString());
+                    data.put("userName",editTextUsername.getText().toString());
+                    mSocket.emit("join",data);
+                    Toast.makeText(rootView.getContext(), "join sent", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
                 }
-        );
+            } else {
+                Toast.makeText(rootView.getContext(), "connection failed", Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootView;
     }
 }

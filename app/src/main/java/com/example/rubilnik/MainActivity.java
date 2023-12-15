@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
-    Context context = this;
+    Context context = MainActivity.this;
 
     Button btnConnect;
 
@@ -75,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
         //NAVIGATION
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
-            Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
         }
         // Register event handlers
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on("reveal", onReveal);
         mSocket.on("end", onEnd);
         mSocket.on("bark", onBark);
-
-
 
 
         //NAVIGATION
@@ -138,6 +136,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void alert(String s){
+        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+    }
+    String alertMessage;
+    Runnable alert = new Runnable(){
+        @Override
+        public void run() {
+            alert(alertMessage);
+        }
+    };
     private Emitter.Listener onJoined = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -148,12 +156,19 @@ public class MainActivity extends AppCompatActivity {
                 playerId = data.getString("playerId");
                 msg = data.getString("msg");
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                alertMessage = "exception";
+                runOnUiThread(alert);
+                Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
             }
-            if (playerId.length()>0) { // подключен успешно
-
-            } else if (msg.length()>0) { // ошибка подключения
-
+            if (playerId.length()>0) { // подключен успешно (переход на стр ожидания)
+                alertMessage = "connected to the room";
+                runOnUiThread(alert);
+                //Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
+                //alert("connected to the room");
+            } else { // ошибка подключения (сообщение об ошибке)
+                alertMessage = "failed to connect to the room";
+                runOnUiThread(alert);
+                //alert("failed to connect to the room");
             }
         }
     };
@@ -233,9 +248,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void alert(String s){
-        Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
-    }
+
 
     private Emitter.Listener onBark = new Emitter.Listener() {
         @Override
