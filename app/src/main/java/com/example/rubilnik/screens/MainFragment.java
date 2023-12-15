@@ -59,9 +59,11 @@ public class MainFragment extends Fragment {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("roomId",editTextKey.getText().toString());
+                    String roomId = editTextKey.getText().toString();
+                    data.put("roomId",roomId);
                     data.put("userName",editTextUsername.getText().toString());
                     mSocket.emit("join",data);
+                    MainActivity.currentRoomId = roomId;
                     Toast.makeText(rootView.getContext(), "join sent", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.rubilnik.MainActivity;
 import com.example.rubilnik.R;
 
 import org.json.JSONArray;
@@ -19,7 +20,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.socket.client.Socket;
+
 public class QuestionFragment extends Fragment {
+
+    Socket mSocket;
     String text;
     JSONArray choices;
     public QuestionFragment(String text, JSONArray choices){
@@ -31,6 +36,8 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mSocket = ((MainActivity) requireActivity()).mSocket;
+
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
         Button choiceButton = rootView.findViewById(R.id.btnChoice1);
         ArrayList<Button> choiceButtons = new ArrayList<>();
@@ -41,11 +48,26 @@ public class QuestionFragment extends Fragment {
         questionTextView.setText(text);
 
         for (int i=0; i<choices.length(); i++){
+
             JSONObject choice;
             String text ="";
             try { choice = choices.getJSONObject(i); text = choice.getString("text");} catch (JSONException e) {Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());}
             if (text.length()>0) { // if choice exists
+                choiceButton = new Button(rootView.getContext());
+                choiceButton.setTextAppearance(R.style.btnChoice);
                 choiceButton.setText(text);
+                int finalI = i;
+                choiceButton.setOnClickListener(v -> {
+                    JSONObject data = new JSONObject();
+                    int choiceInd = finalI;
+                    try {
+                        data.put("roomId",MainActivity.currentRoomId);
+                        data.put("userId",MainActivity.userId);
+                        data.put("choiceInd",choiceInd);
+                    } catch (JSONException e) {throw new RuntimeException(e);}
+                    mSocket.emit("choice", data);
+                });
+                buttonsLayout.addView(choiceButton);
                 choiceButtons.add(choiceButton);
             }
         }

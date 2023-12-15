@@ -60,6 +60,8 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     public Socket mSocket;
+    static public String userId;
+    static public String currentRoomId;
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
@@ -73,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userId="";
+        currentRoomId="";
 
         //NAVIGATION
         try {
@@ -163,12 +168,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
             }
             if (playerId.length()>0) { // подключен успешно (переход на стр ожидания)
+                userId = playerId;
                 replaceFragment(new WaitingFragment());
                 alertMessage = "connected to the room";
                 runOnUiThread(alert);
                 //Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
                 //alert("connected to the room");
             } else { // ошибка подключения (сообщение об ошибке)
+                currentRoomId = "";
                 alertMessage = playerId.toString(); //"failed to connect to the room"
                 runOnUiThread(alert);
                 //alert("failed to connect to the room");
@@ -193,21 +200,19 @@ public class MainActivity extends AppCompatActivity {
 
     private Emitter.Listener onStart = new Emitter.Listener() {
         @Override
-        public void call(Object... args) {
-
-        }
+        public void call(Object... args) {}
     };
 
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
-//            alertMessage=data.toString();
-//            runOnUiThread(alert);
             try {
                 JSONObject question = data.getJSONObject("question");
                 String text = question.getString("text");
                 JSONArray choices = question.getJSONArray("choices");
+                alertMessage = choices.toString();
+                runOnUiThread(alert);
                 replaceFragment(new QuestionFragment(text,choices));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -221,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             JSONObject data = (JSONObject) args[0];
             try {
                 String userId = data.getString("userId");
-                int questionInd = data.getInt("questionInd");
+                //int questionInd = data.getInt("questionInd");
                 int choiceInd = data.getInt("choiceInd");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
