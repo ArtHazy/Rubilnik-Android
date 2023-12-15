@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.R;
 
+import java.util.ArrayList;
+
 public class QuestionFragment extends Fragment {
 
     @Override
@@ -19,6 +21,7 @@ public class QuestionFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
         LinearLayout buttonsLayout = rootView.findViewById(R.id.buttonsLayout);
+        ArrayList<Button> choiceButtons = new ArrayList<>();
         Button choiceButton;
 
         return rootView;
