@@ -52,6 +52,7 @@ public class MainFragment extends Fragment {
         editTextKey = rootView.findViewById(R.id.editTextKey);
 
         btnConnect.setOnClickListener((View v) ->{
+
             mSocket.connect();
             if (mSocket.connected()){
                 Toast.makeText(rootView.getContext(), "socket connected", Toast.LENGTH_SHORT).show();

@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on("bark", onBark);
 
 
+
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new MainFragment());
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -161,12 +162,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
             }
             if (playerId.length()>0) { // подключен успешно (переход на стр ожидания)
+                replaceFragment(new WaitingFragment());
                 alertMessage = "connected to the room";
                 runOnUiThread(alert);
                 //Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
                 //alert("connected to the room");
             } else { // ошибка подключения (сообщение об ошибке)
-                alertMessage = "failed to connect to the room";
+                alertMessage = playerId.toString(); //"failed to connect to the room"
                 runOnUiThread(alert);
                 //alert("failed to connect to the room");
             }
