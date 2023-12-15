@@ -142,11 +142,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
-            String playerId;
+            String playerId = "";
+            String msg = "";
             try {
                 playerId = data.getString("playerId");
+                msg = data.getString("msg");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
+            }
+            if (playerId.length()>0) { // подключен успешно
+
+            } else if (msg.length()>0) { // ошибка подключения
+
             }
         }
     };
