@@ -202,9 +202,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
+//            alertMessage=data.toString();
+//            runOnUiThread(alert);
             try {
-                String text = data.getString("text");
-                JSONArray choices = data.getJSONArray("choices");
+                JSONObject question = data.getJSONObject("question");
+                String text = question.getString("text");
+                JSONArray choices = question.getJSONArray("choices");
+                replaceFragment(new QuestionFragment(text,choices));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
