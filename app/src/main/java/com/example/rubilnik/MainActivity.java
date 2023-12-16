@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on("joined", onJoined);
         mSocket.on("join", onJoin);
+        mSocket.on("leave", onLeave);
         mSocket.on("start", onStart);
         mSocket.on("next", onNext);
         mSocket.on("choice", onChoice);
@@ -190,7 +191,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+    private Emitter.Listener onLeave = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            try {
+                String userId = data.getString("userId");
+                String userName = data.getString("userName");
+                runOnUiThread(()->{alert(userId+" "+userName+" left the room");});
+            } catch (JSONException e) {MyTools.LogError(e);}
+        }
+    };
     private Emitter.Listener onStart = new Emitter.Listener() {
         @Override
         public void call(Object... args) {}
@@ -258,16 +269,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
-            String msg;
+            String msg = "";
             try {
                 msg = data.getString("msg");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            //alert(msg);
-            // Handle "myEvent" event
+            } catch (JSONException e) {MyTools.LogError(e);}
+            String finalMsg = msg;
+            runOnUiThread(()->{alert(finalMsg);});
         }
     };
+
 
     @Override
     protected void onDestroy() {

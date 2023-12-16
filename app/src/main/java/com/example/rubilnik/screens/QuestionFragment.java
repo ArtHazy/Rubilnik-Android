@@ -70,6 +70,9 @@ public class QuestionFragment extends Fragment {
                         data.put("questionInd",MainActivity.currentQuestionInd);
                         data.put("choiceInd",choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
+                    for (Button chButton:choiceButtons) {
+                        chButton.setClickable(false);
+                    }
                     mSocket.emit("choice", data);
                 });
                 buttonsLayout.addView(choiceButton);
