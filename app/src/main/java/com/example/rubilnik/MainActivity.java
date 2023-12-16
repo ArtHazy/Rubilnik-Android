@@ -1,48 +1,27 @@
 package com.example.rubilnik;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-import static androidx.core.graphics.drawable.DrawableCompat.inflate;
 import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.rubilnik.screens.MainFragment;
-import com.example.rubilnik.screens.AccountFragment;
-import com.example.rubilnik.screens.QuestionFragment;
 import com.example.rubilnik.screens.SettingsFragment;
 import com.example.rubilnik.screens.WaitingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,13 +29,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-import java.io.Console;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -95,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
-            mSocket.connect();
         } catch (URISyntaxException e) {MyTools.LogError(e);}
 
         mSocket.on("joined", onJoined);

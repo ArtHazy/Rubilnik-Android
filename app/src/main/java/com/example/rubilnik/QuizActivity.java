@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.rubilnik.screens.MainFragment;
 import com.example.rubilnik.screens.QuestionFragment;
 import com.example.rubilnik.screens.WaitingFragment;
 
@@ -18,9 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
-
-import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
@@ -43,8 +41,6 @@ public class QuizActivity extends AppCompatActivity {
         currentRoomId = intent.getStringExtra("currentRoomId");
 
         currentQuestionInd=-1;
-
-        runOnUiThread(()->{alert("Connected to the room");});
         replaceFragment(new WaitingFragment());
 
 //        try {
@@ -67,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.replace(R.id.quizFrame, fragment);
         fragmentTransaction.commit();
     }
     private void alert(String s){
