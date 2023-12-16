@@ -52,8 +52,6 @@ public class MainFragment extends Fragment {
         editTextKey = rootView.findViewById(R.id.editTextKey);
 
         btnConnect.setOnClickListener((View v) ->{
-
-            mSocket.connect();
             if (mSocket.connected()){
                 Toast.makeText(rootView.getContext(), "socket connected", Toast.LENGTH_SHORT).show();
                 JSONObject data = new JSONObject();
@@ -69,7 +67,7 @@ public class MainFragment extends Fragment {
                     throw new RuntimeException(e);
                 }
             } else {
-                Toast.makeText(rootView.getContext(), "connection failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(rootView.getContext(), "no socket connection", Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;

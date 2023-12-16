@@ -85,10 +85,9 @@ public class MainActivity extends AppCompatActivity {
         //NAVIGATION
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
-        } catch (URISyntaxException e) {
-            MyTools.LogError(e);
+            mSocket.connect();
+        } catch (URISyntaxException e) {MyTools.LogError(e);}
 
-        }
         // Register event handlers
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on("joined", onJoined);
@@ -99,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on("reveal", onReveal);
         mSocket.on("end", onEnd);
         mSocket.on("bark", onBark);
-
-
 
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
@@ -180,13 +177,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
-            String userName;
-            String userId;
+            String userName = "";
+            String userId = "";
             try {
                 userName = data.getString("userName");
                 userId = data.getString("userId");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+            } catch (JSONException e) {MyTools.LogError(e);}
+            if (userName.length()>0 && userId.length()>0){
+                String finalUserId = userId;
+                String finalUserName = userName;
+                runOnUiThread(()->{alert(finalUserId.toString()+" "+finalUserName+" joined");});
             }
         }
     };
