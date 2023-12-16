@@ -137,19 +137,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    ///////
-    private Emitter.Listener onConnect = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            // Connected to the server
-        }
-    };
+
     private void alert(String s){
         Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();	        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
     }
-//    //private void alert(String s){
-//        Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
-//    }
+    private Emitter.Listener onConnect = args -> {
+        // Connected to the server
+    };
     private Emitter.Listener onJoined = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -164,49 +158,35 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(()->{alert("Connected to the room");});
                 userId = playerId;
                 replaceFragment(new WaitingFragment());
-                //runOnUiThread(() -> {alert("connected to the room");});
             } else { // ошибка подключения (сообщение об ошибке)
                 currentRoomId = "";
                 runOnUiThread(() -> {alert("failed to connect");});
-                //alert("failed to connect to the room");
             }
         }
     };
-
-
-    private Emitter.Listener onJoin = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            String userName = "";
-            String userId = "";
-            try {
-                userName = data.getString("userName");
-                userId = data.getString("userId");
-            } catch (JSONException e) {MyTools.LogError(e);}
-            if (userName.length()>0 && userId.length()>0){
-                String finalUserId = userId;
-                String finalUserName = userName;
-                runOnUiThread(()->{alert(finalUserId.toString()+" "+finalUserName+" joined");});
-            }
+    private Emitter.Listener onJoin = args -> {
+        JSONObject data = (JSONObject) args[0];
+        String userName = "";
+        String userId = "";
+        try {
+            userName = data.getString("userName");
+            userId = data.getString("userId");
+        } catch (JSONException e) {MyTools.LogError(e);}
+        if (userName.length()>0 && userId.length()>0){
+            String finalUserId = userId;
+            String finalUserName = userName;
+            runOnUiThread(()->{alert(finalUserId.toString()+" "+finalUserName+" joined");});
         }
     };
-    private Emitter.Listener onLeave = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            try {
-                String userId = data.getString("userId");
-                String userName = data.getString("userName");
-                runOnUiThread(()->{alert(userId+" "+userName+" left the room");});
-            } catch (JSONException e) {MyTools.LogError(e);}
-        }
+    private Emitter.Listener onLeave = args -> {
+        JSONObject data = (JSONObject) args[0];
+        try {
+            String userId = data.getString("userId");
+            String userName = data.getString("userName");
+            runOnUiThread(()->{alert(userId+" "+userName+" left the room");});
+        } catch (JSONException e) {MyTools.LogError(e);}
     };
-    private Emitter.Listener onStart = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {}
-    };
-
+    private Emitter.Listener onStart = args -> {};
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -222,60 +202,40 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
-    private Emitter.Listener onChoice = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            try {
-                String userId = data.getString("userId");
-                //int questionInd = data.getInt("questionInd");
-                int choiceInd = data.getInt("choiceInd");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+    private Emitter.Listener onChoice = args -> {
+        JSONObject data = (JSONObject) args[0];
+        try {
+            String userId = data.getString("userId");
+            int questionInd = data.getInt("questionInd");
+            int choiceInd = data.getInt("choiceInd");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     };
-
-    private Emitter.Listener onReveal = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            int choiceInd;
-            try {
-                choiceInd = data.getInt("choiceInd");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+    private Emitter.Listener onReveal = args -> {
+        JSONObject data = (JSONObject) args[0];
+        int choiceInd;
+        try {
+            choiceInd = data.getInt("choiceInd");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     };
-
-    private Emitter.Listener onEnd = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            JSONArray scores = new JSONArray();
-            try {
-                scores = data.getJSONArray("scores");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    private Emitter.Listener onEnd = args -> {
+        JSONObject data = (JSONObject) args[0];
+        JSONArray scores = new JSONArray();
+        try {
+            scores = data.getJSONArray("scores");
+        } catch (JSONException e) {MyTools.LogError(e);}
     };
-
-
-
-    private Emitter.Listener onBark = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            String msg = "";
-            try {
-                msg = data.getString("msg");
-            } catch (JSONException e) {MyTools.LogError(e);}
-            String finalMsg = msg;
-            runOnUiThread(()->{alert(finalMsg);});
-        }
+    private Emitter.Listener onBark = args -> {
+        JSONObject data = (JSONObject) args[0];
+        String msg = "";
+        try {
+            msg = data.getString("msg");
+        } catch (JSONException e) {MyTools.LogError(e);}
+        String finalMsg = msg;
+        runOnUiThread(()->{alert(finalMsg);});
     };
 
 
