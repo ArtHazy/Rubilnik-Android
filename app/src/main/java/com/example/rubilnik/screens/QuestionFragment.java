@@ -38,7 +38,7 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mSocket = ((MainActivity) requireActivity()).mSocket;
+        mSocket = MainActivity.mSocket;
 
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
         Button choiceButton = rootView.findViewById(R.id.btnChoice1);
