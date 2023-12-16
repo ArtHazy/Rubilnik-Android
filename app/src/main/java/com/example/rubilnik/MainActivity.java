@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.text.Editable;
@@ -59,10 +60,8 @@ import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
-    public Socket mSocket;
-    static public String userId;
-    static public String currentRoomId;
-    static public int currentQuestionInd;
+
+    public static Socket mSocket;
     NavController navController;
     BottomNavigationView bottomNavigationView;
 
@@ -77,29 +76,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = MainActivity.this;
-
-        userId="";
-        currentRoomId="";
-        currentQuestionInd=-1;
-
         //NAVIGATION
-        try {
-            mSocket = IO.socket("http://10.0.2.2:3000");
-            mSocket.connect();
-        } catch (URISyntaxException e) {MyTools.LogError(e);}
-
         // Register event handlers
-        mSocket.on(Socket.EVENT_CONNECT, onConnect);
-        mSocket.on("joined", onJoined);
-        mSocket.on("join", onJoin);
-        mSocket.on("leave", onLeave);
-        mSocket.on("start", onStart);
-        mSocket.on("next", onNext);
-        mSocket.on("choice", onChoice);
-        mSocket.on("reveal", onReveal);
-        mSocket.on("end", onEnd);
-        mSocket.on("bark", onBark);
-
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new MainFragment());
@@ -114,7 +92,38 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new SettingsFragment());
             return true;
         });
+
+        try {
+            mSocket = IO.socket("http://10.0.2.2:3000");
+            mSocket.connect();
+        } catch (URISyntaxException e) {MyTools.LogError(e);}
+
+        mSocket.on("joined", onJoined);
     }
+    private Emitter.Listener onJoined = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            String playerId = "";
+            String msg = "";
+            try {
+                playerId = data.getString("playerId");
+                msg = data.getString("msg");
+            } catch (JSONException e) {MyTools.LogError(e);}
+            if (playerId.length()>0) { // подключен успешно (переход на quiz activity)
+                Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
+                // Optional parameters
+                quizIntent.putExtra("playerId", playerId);
+                quizIntent.putExtra("msg", msg);
+                quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
+                //
+                MainActivity.this.startActivity(quizIntent);
+            } else { // ошибка подключения (сообщение об ошибке)
+                //currentRoomId = "";
+                //runOnUiThread(() -> {alert("failed to connect");});
+            }
+        }
+    };
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -137,111 +146,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-    private void alert(String s){
-        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();	        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
-    }
-    private Emitter.Listener onConnect = args -> {
-        // Connected to the server
-    };
-    private Emitter.Listener onJoined = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            String playerId = "";
-            String msg = "";
-            try {
-                playerId = data.getString("playerId");
-                msg = data.getString("msg");
-            } catch (JSONException e) {MyTools.LogError(e);}
-            if (playerId.length()>0) { // подключен успешно (переход на стр ожидания)
-                runOnUiThread(()->{alert("Connected to the room");});
-                userId = playerId;
-                replaceFragment(new WaitingFragment());
-            } else { // ошибка подключения (сообщение об ошибке)
-                currentRoomId = "";
-                runOnUiThread(() -> {alert("failed to connect");});
-            }
-        }
-    };
-    private Emitter.Listener onJoin = args -> {
-        JSONObject data = (JSONObject) args[0];
-        String userName = "";
-        String userId = "";
-        try {
-            userName = data.getString("userName");
-            userId = data.getString("userId");
-        } catch (JSONException e) {MyTools.LogError(e);}
-        if (userName.length()>0 && userId.length()>0){
-            String finalUserId = userId;
-            String finalUserName = userName;
-            runOnUiThread(()->{alert(finalUserId.toString()+" "+finalUserName+" joined");});
-        }
-    };
-    private Emitter.Listener onLeave = args -> {
-        JSONObject data = (JSONObject) args[0];
-        try {
-            String userId = data.getString("userId");
-            String userName = data.getString("userName");
-            runOnUiThread(()->{alert(userId+" "+userName+" left the room");});
-        } catch (JSONException e) {MyTools.LogError(e);}
-    };
-    private Emitter.Listener onStart = args -> {};
-    private Emitter.Listener onNext = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            currentQuestionInd++;
-            JSONObject data = (JSONObject) args[0];
-            try {
-                JSONObject question = data.getJSONObject("question");
-                String text = question.getString("text");
-                JSONArray choices = question.getJSONArray("choices");
-                replaceFragment(new QuestionFragment(text,choices));
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    };
-    private Emitter.Listener onChoice = args -> {
-        JSONObject data = (JSONObject) args[0];
-        try {
-            String userId = data.getString("userId");
-            int questionInd = data.getInt("questionInd");
-            int choiceInd = data.getInt("choiceInd");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-    };
-    private Emitter.Listener onReveal = args -> {
-        JSONObject data = (JSONObject) args[0];
-        int choiceInd;
-        try {
-            choiceInd = data.getInt("choiceInd");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-    };
-    private Emitter.Listener onEnd = args -> {
-        JSONObject data = (JSONObject) args[0];
-        JSONArray scores = new JSONArray();
-        try {
-            scores = data.getJSONArray("scores");
-        } catch (JSONException e) {MyTools.LogError(e);}
-    };
-    private Emitter.Listener onBark = args -> {
-        JSONObject data = (JSONObject) args[0];
-        String msg = "";
-        try {
-            msg = data.getString("msg");
-        } catch (JSONException e) {MyTools.LogError(e);}
-        String finalMsg = msg;
-        runOnUiThread(()->{alert(finalMsg);});
-    };
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSocket.disconnect();
-    }
 }

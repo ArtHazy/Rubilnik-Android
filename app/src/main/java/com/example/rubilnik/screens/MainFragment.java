@@ -36,7 +36,7 @@ public class MainFragment extends Fragment {
     androidx.appcompat.widget.AppCompatButton usernameButton;
 
     Socket mSocket;
-    EditText editTextKey;
+    public static EditText editTextKey;
     EditText editTextUsername;
 
     @Override
@@ -62,7 +62,6 @@ public class MainFragment extends Fragment {
                     data.put("userName",editTextUsername.getText().toString());
                     mSocket.emit("join",data);
                     Toast.makeText(rootView.getContext(), "join sent", Toast.LENGTH_SHORT).show();
-                    MainActivity.currentRoomId = roomId;
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
