@@ -153,7 +153,8 @@ public class QuizActivity extends AppCompatActivity {
     };
     @Override
     protected void onDestroy() {
+        MainActivity.mSocket.disconnect();
         super.onDestroy();
-        mSocket.disconnect();
+
     }
 }
