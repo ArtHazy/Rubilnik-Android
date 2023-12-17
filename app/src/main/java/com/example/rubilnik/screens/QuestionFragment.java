@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.MainActivity;
 import com.example.rubilnik.MyTools;
+import com.example.rubilnik.QuizActivity;
 import com.example.rubilnik.R;
 
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mSocket = ((MainActivity) requireActivity()).mSocket;
+        mSocket = MainActivity.mSocket;
 
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
         Button choiceButton = rootView.findViewById(R.id.btnChoice1);
@@ -65,9 +66,9 @@ public class QuestionFragment extends Fragment {
                     JSONObject data = new JSONObject();
                     int choiceInd = finalI;
                     try {
-                        data.put("roomId",MainActivity.currentRoomId);
-                        data.put("userId",MainActivity.userId);
-                        data.put("questionInd",MainActivity.currentQuestionInd);
+                        data.put("roomId",QuizActivity.currentRoomId);
+                        data.put("userId",QuizActivity.playerId);
+                        data.put("questionInd", QuizActivity.currentQuestionInd);
                         data.put("choiceInd",choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
                     for (Button chButton:choiceButtons) {

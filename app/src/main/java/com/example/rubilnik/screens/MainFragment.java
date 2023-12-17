@@ -30,13 +30,14 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 public class MainFragment extends Fragment {
     androidx.appcompat.widget.AppCompatButton btnConnect;
     androidx.appcompat.widget.AppCompatButton usernameButton;
 
     Socket mSocket;
-    EditText editTextKey;
+    public static EditText editTextKey;
     EditText editTextUsername;
 
     @Override
@@ -44,7 +45,6 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mSocket = ((MainActivity) requireActivity()).mSocket;
-
         View rootView = inflater.inflate(R.layout.main_fragment, container, false);
         btnConnect = rootView.findViewById(R.id.btnConnect);
         editTextUsername = rootView.findViewById(R.id.editTextName);
@@ -52,8 +52,8 @@ public class MainFragment extends Fragment {
         editTextKey = rootView.findViewById(R.id.editTextKey);
 
         btnConnect.setOnClickListener((View v) ->{
-            if (mSocket.connected()){
-                Toast.makeText(rootView.getContext(), "socket connected", Toast.LENGTH_SHORT).show();
+            mSocket.connect();
+            mSocket.on(Socket.EVENT_CONNECT, args -> {
                 JSONObject data = new JSONObject();
 
                 try {
@@ -61,14 +61,12 @@ public class MainFragment extends Fragment {
                     data.put("roomId",roomId);
                     data.put("userName",editTextUsername.getText().toString());
                     mSocket.emit("join",data);
-                    Toast.makeText(rootView.getContext(), "join sent", Toast.LENGTH_SHORT).show();
-                    MainActivity.currentRoomId = roomId;
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-            } else {
-                Toast.makeText(rootView.getContext(), "no socket connection", Toast.LENGTH_SHORT).show();
-            }
+            });
+            mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+            });
         });
         return rootView;
     }
