@@ -1,8 +1,29 @@
 <resources>
-    <string name="app_name">Rubilnik</string>
-    <string name="welcome">Welcome</string>
-    <string name="username">Username</string>
-    <string name="settings">Settings</string>
-    <string name="sound">Sound</string>
-    <string name="profile_pic">Profile picture</string>
+    <string name="app_name">RUBILNIK</string>
+    <string name="app_name1">RUBIL</string>
+    <string name="app_name2">NIK</string>
+    <string name="welcome">WELCOME</string>
+    <string name="nick">NICK</string>
+    <string name="settings">SETTINGS</string>
+    <string name="sound">SOUND</string>
+    <string name="profile_pic">PROFILE PICTURE</string>
+    <string name="session">SESSION</string>
+    <string name="connect">CONNECT</string>
+    <string name="enter_name">ENTER NAME</string>
+    <string name="enter_key">ENTER KEY</string>
+    <string name="username">USERNAME</string>
+    <string name="profile">PROFILE</string>
+    <string name="music">MUSIC</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="question">QUESTION\u00A0</string>
+
+    <string name="numQuestion">1</string>
+    <string name="textQuestion">HOW ARE YOU?</string>
+    <string name="ratingPos">POSITION</string>
+    <string name="txtRatingPosInfo">1</string>
+    <string name="txtRightAnswers">RIGHT ANSWERS</string>
+    <string name="txtRightAnswersInfo">1</string>
+    <string name="btnReturn">RETURN</string>
+    <string name="result">RESULT</string>
+    <string name="download">DOWNLOAD</string>
 </resources>

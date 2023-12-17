@@ -1,101 +1,123 @@
 package com.example.rubilnik;
 
+import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.EditText;
 
-import java.util.ArrayList;
+import com.example.rubilnik.screens.MainFragment;
+import com.example.rubilnik.screens.SettingsFragment;
+import com.example.rubilnik.screens.WaitingFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements SetUserNameDialog.activityContains_getStringFromDialog {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    TextView usernameTextView;
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
-    Button usernameButton;
-    Button connectButton;
-    ImageButton editUsernameImageButton;
-
-    LinearLayout settingsLinLay;
-    LinearLayout settingsGroup;
-    Context context;
+import java.net.URISyntaxException;
 
 
+public class MainActivity extends AppCompatActivity {
+
+    public static FragmentManager fragmentManager;
+    public static Socket mSocket;
+    NavController navController;
+    BottomNavigationView bottomNavigationView;
+
+    public static Context context;
+
+    Button btnConnect;
+
+//    private ListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.activity_main);
+        context = MainActivity.this;
+        fragmentManager = getSupportFragmentManager();
+        //NAVIGATION
+        // Register event handlers
+        //NAVIGATION
+        bottomNavigationView = findViewById(R.id.menuBottom);
+        replaceFragment(new MainFragment());
 
-        context = this;
-
-        settingsLinLay = findViewById(R.id.settings_lin_lay);
-
-        ArrayList<View> settingsModules = new ArrayList<>();
-
-        ArrayList<View> settingViews1 = new ArrayList<>();
-        settingViews1.add(new Switch(this));
-        settingViews1.add(new Switch(this));
-        settingViews1.add(new Switch(this));
-        settingViews1.add(new Switch(this));
-        settingViews1.add(new Switch(this));
-        ArrayList<View> settingViews2 = new ArrayList<>();
-        settingViews2.add(new Switch(this));
-        ArrayList<View> settingViews3 = new ArrayList<>();
-        settingViews3.add(new Switch(this));
-        settingViews3.add(new Switch(this));
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setPadding(MyTools.dpToPx(this,40),0,0,0);
-        settingViews3.add(checkBox);
-
-        settingsGroup = MyTools.customListFormat(settingViews1,this,true, MyTools.dpToPx(this, 2),true);
-        settingsModules.add(settingsGroup);
-        settingsGroup = MyTools.customListFormat(settingViews2,this,true, MyTools.dpToPx(this, 2),true);
-        settingsModules.add(settingsGroup);
-        settingsGroup = MyTools.customListFormat(settingViews3,this,true,MyTools.dpToPx(this, 2),true);
-        settingsModules.add(settingsGroup);
-
-        settingsGroup = MyTools.customListFormat(settingsModules,this,false,MyTools.dpToPx(this, 10),false);
-
-        settingsLinLay.addView(settingsGroup);
-
-
-
-
-
-
-        usernameButton = findViewById(R.id.usernameButton);
-        connectButton = findViewById(R.id.connectRoomButton);
-
-        usernameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SetUserNameDialog setUserNameDialog = new SetUserNameDialog();
-                setUserNameDialog.show(getSupportFragmentManager(),"Rename");
-            }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.main)
+                replaceFragment(new MainFragment());
+            else if (id == R.id.waiting)
+                replaceFragment(new WaitingFragment());
+            else if (id == R.id.settings)
+                replaceFragment(new SettingsFragment());
+            return true;
         });
 
+        try {
+            mSocket = IO.socket("http://10.0.2.2:3000");
+        } catch (URISyntaxException e) {MyTools.LogError(e);}
 
-        connectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Http http = new Http(context);
-                http.execute();
-            }
-        });
-
+        mSocket.on("joined", onJoined);
     }
+    private Emitter.Listener onJoined = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            String playerId = "";
+            String msg = "";
+            try {
+                playerId = data.getString("playerId");
+                msg = data.getString("msg");
+            } catch (JSONException e) {MyTools.LogError(e);}
+            if (playerId.length()>0) { // подключен успешно (переход на quiz activity)
+                Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
+                // Optional parameters
+                quizIntent.putExtra("playerId", playerId);
+                quizIntent.putExtra("msg", msg);
+                quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
+                //
+                MainActivity.this.startActivity(quizIntent);
+            } else { // ошибка подключения (сообщение об ошибке)
+                //currentRoomId = "";
+                //runOnUiThread(() -> {alert("failed to connect");});
+            }
+        }
+    };
 
     @Override
-    public void getStringFromDialog(String value) {
-        usernameButton.setText(value);
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int[] scrcoords = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
 }

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">РУБИЛЬНИК</string>
+    <string name="app_name1">РУБИЛЬ</string>
+    <string name="app_name2">НИК</string>
+    <string name="welcome">ПРИВЕТСТВУЕМ</string>
+    <string name="nick">ИМЯ</string>
+    <string name="settings">НАСТРОЙКИ</string>
+    <string name="sound">ЗВУК</string>
+    <string name="profile_pic">АВАТАР</string>
+    <string name="session">СЕССИЯ</string>
+    <string name="connect">ВОЙТИ</string>
+    <string name="enter_name">ВВЕДИТЕ ИМЯ</string>
+    <string name="enter_key">ВВЕДИТЕ КЛЮЧ</string>
+    <string name="username">ИМЯ ПОЛЬЗОВАТЕЛЯ</string>
+    <string name="profile">ПРОФИЛЬ</string>
+    <string name="music">МУЗЫКА</string>
+    <string name="feedback">СВЯЗАТЬСЯ</string>
+    <string name="question">ВОПРОС\u00A0</string>
+
+    <string name="numQuestion">1</string>
+    <string name="textQuestion">КАК ТВОИ ДЕЛА?</string>
+
+    <string name="ratingPos">МЕСТО</string>
+    <string name="txtRatingPosInfo">1</string>
+    <string name="txtRightAnswers">ПРАВИЛЬНЫХ ОТВЕТОВ</string>
+    <string name="txtRightAnswersInfo">1</string>
+    <string name="btnReturn">ВЕРНУТЬСЯ</string>
+    <string name="result">ИТОГ</string>
+    <string name="download">ЗАГРУЗКА</string>
+</resources>

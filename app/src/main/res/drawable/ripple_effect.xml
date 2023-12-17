@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/cineBottomBar">
+        <item android:id="@android:id/mask" android:gravity="center" android:height="46dp" android:width="46dp">
+                <shape android:shape="rectangle">
+                        <corners android:radius="5dp"/>
+                        <solid android:color="@android:color/transparent"/>
+                        <stroke android:width="2dp"/>
+                </shape>
+
+
+        </item>
+<!--        android:radius="36dp" android:gravity="bottom" android:drawable="@drawable/edit_text_bg" android:height="3dp"-->
+</ripple>

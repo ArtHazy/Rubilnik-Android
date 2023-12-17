@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="start|center"
+        android:background="@color/greyDark">
+        <TextView
+            android:id="@+id/txtConstQuestion"
+            android:text="@string/question"
+            style="@style/textMainAll"
+            android:layout_marginTop="0dp"
+            android:textColor="@color/yellow"/>
+        <TextView
+            android:id="@+id/txtCountQuestion"
+            android:text="@string/numQuestion"
+            style="@style/textMainAll"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="0dp"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:text="@string/textQuestion"
+            style="@style/textRegular"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/greyDark"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice1"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice2"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice3"
+            style="@style/btnChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChoice4"
+            style="@style/btnChoice"
+            android:textColor="@color/greyDark" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+</LinearLayout>

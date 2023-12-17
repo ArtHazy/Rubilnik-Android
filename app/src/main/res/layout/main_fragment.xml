@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.MainFragment"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/txtRub">
+        <TextView
+            android:text="@string/app_name1"
+            style="@style/textMainRub"/>
+        <TextView
+            android:text="@string/app_name2"
+            style="@style/textMainRub"
+            android:layout_marginStart="0dp"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtName"
+        android:text="@string/nick"
+        style="@style/textMainAll"/>
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextName"-->
+    <!--        android:hint="@string/enter_name"-->
+    <!--        style="@style/textMainEditText"/>-->
+
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/textMainEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:autofillHints=""
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/enter_name"
+        android:imeOptions="flagForceAscii"
+        android:maxLength="12"
+        android:textColorHint="@color/greyHint" />
+
+    <TextView
+        android:id="@+id/txtSession"
+        style="@style/textMainAll"
+        android:text="@string/session"/>
+
+    <EditText
+        android:id="@+id/editTextKey"
+        android:hint="@string/enter_key"
+        style="@style/textMainEditText"
+        android:imeOptions="flagForceAscii"
+
+        android:textColorHint="@color/greyHint"
+        android:maxLength="4"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:autofillHints=""/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConnect"
+        style="@style/btn"
+        android:layout_marginTop="72dp"
+        android:text="@string/connect" />
+
+</LinearLayout>
