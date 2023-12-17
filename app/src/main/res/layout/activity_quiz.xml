@@ -11,12 +11,5 @@
         android:id="@+id/quizFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:navGraph="@navigation/graph_navigation">
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-    </FrameLayout>
+        app:navGraph="@navigation/graph_navigation"/>
 </FrameLayout>

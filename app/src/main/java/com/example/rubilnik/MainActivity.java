@@ -34,6 +34,7 @@ import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static FragmentManager fragmentManager;
     public static Socket mSocket;
     NavController navController;
     BottomNavigationView bottomNavigationView;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = MainActivity.this;
+        fragmentManager = getSupportFragmentManager();
         //NAVIGATION
         // Register event handlers
         //NAVIGATION

@@ -13,12 +13,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rubilnik.screens.MainFragment;
 import com.example.rubilnik.screens.QuestionFragment;
+import com.example.rubilnik.screens.ResultFragment;
 import com.example.rubilnik.screens.WaitingFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+
+import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
@@ -43,10 +48,7 @@ public class QuizActivity extends AppCompatActivity {
         currentQuestionInd=-1;
         replaceFragment(new WaitingFragment());
 
-//        try {
-//            mSocket = IO.socket("http://10.0.2.2:3000");
-//            mSocket.connect();
-//        } catch (URISyntaxException e) {MyTools.LogError(e);}
+
 
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         //mSocket.on("joined", onJoined);
@@ -61,10 +63,13 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.quizFrame, fragment);
-        fragmentTransaction.commit();
+        if (!isDestroyed()){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.quizFrame, fragment);
+            fragmentTransaction.commit();
+        }
+
     }
     private void alert(String s){
         Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
@@ -134,9 +139,8 @@ public class QuizActivity extends AppCompatActivity {
     private Emitter.Listener onEnd = args -> {
         JSONObject data = (JSONObject) args[0];
         JSONArray scores = new JSONArray();
-        try {
-            scores = data.getJSONArray("scores");
-        } catch (JSONException e) {MyTools.LogError(e);}
+        try {scores = data.getJSONArray("scores");} catch (JSONException e) {MyTools.LogError(e);}
+        replaceFragment(new ResultFragment(scores));
     };
     private Emitter.Listener onBark = args -> {
         JSONObject data = (JSONObject) args[0];
@@ -151,6 +155,5 @@ public class QuizActivity extends AppCompatActivity {
     protected void onDestroy() {
         MainActivity.mSocket.disconnect();
         super.onDestroy();
-
     }
 }

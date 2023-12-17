@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 public class MainFragment extends Fragment {
     androidx.appcompat.widget.AppCompatButton btnConnect;
@@ -52,8 +53,7 @@ public class MainFragment extends Fragment {
 
         btnConnect.setOnClickListener((View v) ->{
             mSocket.connect();
-            if (mSocket.connected()){
-                Toast.makeText(rootView.getContext(), "socket connected", Toast.LENGTH_SHORT).show();
+            mSocket.on(Socket.EVENT_CONNECT, args -> {
                 JSONObject data = new JSONObject();
 
                 try {
@@ -64,9 +64,9 @@ public class MainFragment extends Fragment {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-            } else {
-                Toast.makeText(rootView.getContext(), "no socket connection", Toast.LENGTH_SHORT).show();
-            }
+            });
+            mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+            });
         });
         return rootView;
     }
