@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rubilnik.MainActivity;
+import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
 import com.example.rubilnik.SetUserNameDialog;
 
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
+import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
@@ -52,8 +54,15 @@ public class MainFragment extends Fragment {
         editTextKey = rootView.findViewById(R.id.editTextKey);
 
         btnConnect.setOnClickListener((View v) ->{
-            mSocket.connect();
+            btnConnect.setClickable(false);
+            btnConnect.setText("...");
+            //mSocket = new Socket(IO.socket(""));
+            if (!mSocket.connected()){mSocket.connect();}
+
             mSocket.on(Socket.EVENT_CONNECT, args -> {
+                btnConnect.setText(R.string.connect);
+                btnConnect.setClickable(true);
+
                 JSONObject data = new JSONObject();
 
                 try {
@@ -65,7 +74,11 @@ public class MainFragment extends Fragment {
                     throw new RuntimeException(e);
                 }
             });
+
             mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+                btnConnect.setText(R.string.connect);
+                btnConnect.setClickable(true);
+                mSocket.disconnect();
             });
         });
         return rootView;

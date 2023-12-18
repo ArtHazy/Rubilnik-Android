@@ -28,7 +28,6 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class QuizActivity extends AppCompatActivity {
-    Socket mSocket;
     static public String playerId;
     static public String msg;
     static public String currentRoomId;
@@ -38,11 +37,9 @@ public class QuizActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        mSocket = MainActivity.mSocket;
 
         Intent intent = getIntent();
         playerId = intent.getStringExtra("playerId");
-        msg = intent.getStringExtra("msg");
         currentRoomId = intent.getStringExtra("currentRoomId");
 
         currentQuestionInd=-1;
@@ -50,16 +47,16 @@ public class QuizActivity extends AppCompatActivity {
 
 
 
-        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        MainActivity.mSocket.on(Socket.EVENT_CONNECT, onConnect);
         //mSocket.on("joined", onJoined);
-        mSocket.on("join", onJoin);
-        mSocket.on("leave", onLeave);
-        mSocket.on("start", onStart);
-        mSocket.on("next", onNext);
-        mSocket.on("choice", onChoice);
-        mSocket.on("reveal", onReveal);
-        mSocket.on("end", onEnd);
-        mSocket.on("bark", onBark);
+        MainActivity.mSocket.on("join", onJoin);
+        MainActivity.mSocket.on("leave", onLeave);
+        MainActivity.mSocket.on("start", onStart);
+        MainActivity.mSocket.on("next", onNext);
+        MainActivity.mSocket.on("choice", onChoice);
+        MainActivity.mSocket.on("reveal", onReveal);
+        MainActivity.mSocket.on("end", onEnd);
+        MainActivity.mSocket.on("bark", onBark);
     }
 
     public void replaceFragment(Fragment fragment) {
@@ -70,9 +67,6 @@ public class QuizActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
 
-    }
-    private void alert(String s){
-        Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
     }
 
     private Emitter.Listener onConnect = args -> {
@@ -90,7 +84,7 @@ public class QuizActivity extends AppCompatActivity {
         if (userName.length()>0 && userId.length()>0){
             String finalUserId = userId;
             String finalUserName = userName;
-            runOnUiThread(()->{alert(finalUserId+" "+finalUserName+" joined");});
+            runOnUiThread(()->{MyTools.alert(this,finalUserId+" "+finalUserName+" joined");});
         }
     };
     private Emitter.Listener onLeave = args -> {
@@ -98,10 +92,18 @@ public class QuizActivity extends AppCompatActivity {
         try {
             String userId = data.getString("userId");
             String userName = data.getString("userName");
-            runOnUiThread(()->{alert(userId+" "+userName+" left the room");});
+            runOnUiThread(()->{MyTools.alert(this,userId+" "+userName+" left the room");});
+            if (userId==currentRoomId){ // host left
+                replaceFragment(new WaitingFragment());
+            }
         } catch (JSONException e) {MyTools.LogError(e);}
+
     };
-    private Emitter.Listener onStart = args -> {};
+    private Emitter.Listener onStart = args -> {
+        runOnUiThread(() -> {
+            MyTools.alert(this,"quiz started");
+        });
+    };
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -150,11 +152,30 @@ public class QuizActivity extends AppCompatActivity {
             msg = data.getString("msg");
         } catch (JSONException e) {MyTools.LogError(e);}
         String finalMsg = msg;
-        runOnUiThread(()->{alert(finalMsg);});
+        runOnUiThread(()->{MyTools.alert(this,finalMsg);});
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //MainActivity.mSocket.off(Socket.EVENT_CONNECT);
+        MainActivity.mSocket.off();
+        MainActivity.mSocket.disconnect();
+        try {
+            IO.socket("http://10.0.2.2:3000").disconnect(); // TODO
+        } catch (URISyntaxException e) {MyTools.LogError(e);}
+        finish();
+    }
+
     @Override
     protected void onDestroy() {
-        MainActivity.mSocket.disconnect();
         super.onDestroy();
+        MainActivity.mSocket.disconnect();
+        try {
+            IO.socket("http://10.0.2.2:3000").disconnect(); // TODO
+        } catch (URISyntaxException e) {MyTools.LogError(e);}
     }
+
+
+
 }

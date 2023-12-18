@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         try {
-            mSocket = IO.socket("http://10.0.2.2:3000");
+            mSocket = IO.socket("http://10.0.2.2:3000"); // TODO 10.0.2.2
         } catch (URISyntaxException e) {MyTools.LogError(e);}
 
         mSocket.on("joined", onJoined);
@@ -79,22 +79,21 @@ public class MainActivity extends AppCompatActivity {
         public void call(Object... args) {
             JSONObject data = (JSONObject) args[0];
             String playerId = "";
-            String msg = "";
             try {
                 playerId = data.getString("playerId");
-                msg = data.getString("msg");
             } catch (JSONException e) {MyTools.LogError(e);}
             if (playerId.length()>0) { // подключен успешно (переход на quiz activity)
                 Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
                 // Optional parameters
                 quizIntent.putExtra("playerId", playerId);
-                quizIntent.putExtra("msg", msg);
                 quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
                 //
-                MainActivity.this.startActivity(quizIntent);
-            } else { // ошибка подключения (сообщение об ошибке)
-                //currentRoomId = "";
-                //runOnUiThread(() -> {alert("failed to connect");});
+                startActivity(quizIntent);
+            } else {
+                runOnUiThread(()->{
+                    MyTools.alert(context,"room doesn't exist");
+                    mSocket.disconnect();
+                });
             }
         }
     };

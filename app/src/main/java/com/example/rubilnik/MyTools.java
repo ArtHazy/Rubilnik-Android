@@ -13,6 +13,10 @@ public class MyTools {
         Log.d("my", e.getClass().getSimpleName() + ": " + e.getMessage());
     }
 
+    public static void alert(Context context,String s){
+        Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+    }
+
     public static int dpToPx(Context context, int dp) {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round(dp * density);

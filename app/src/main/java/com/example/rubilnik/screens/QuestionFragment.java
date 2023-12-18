@@ -49,7 +49,7 @@ public class QuestionFragment extends Fragment {
         buttonsLayout.removeAllViews();
         TextView txtQuestion = rootView.findViewById(R.id.txtQuestion);
         TextView txtQuestionInd = rootView.findViewById(R.id.txtQuestionInd);
-        txtQuestionInd.setText(String.valueOf(questionInd));
+        txtQuestionInd.setText(String.valueOf(++questionInd));
 
         txtQuestion.setText(text);
 

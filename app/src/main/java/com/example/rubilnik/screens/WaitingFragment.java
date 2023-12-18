@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.example.rubilnik.QuizActivity;
 import com.example.rubilnik.R;
 
 public class WaitingFragment extends Fragment {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch aSwitchThemes;
     TextView textViewDownload;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +27,7 @@ public class WaitingFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.waiting_fragment, container, false);
         aSwitchThemes = rootView.findViewById(R.id.swWaitingThemes);
         textViewDownload = rootView.findViewById(R.id.txtDownload);
+        textViewDownload.setText("Комната "+QuizActivity.currentRoomId);
 
         aSwitchThemes.setOnCheckedChangeListener ((buttonView, isChecked) -> {
             if (!isChecked) {
