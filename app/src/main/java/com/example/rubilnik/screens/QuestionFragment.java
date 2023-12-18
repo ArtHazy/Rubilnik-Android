@@ -29,7 +29,9 @@ public class QuestionFragment extends Fragment {
     Socket mSocket;
     String text;
     JSONArray choices;
-    public QuestionFragment(String text, JSONArray choices){
+    int questionInd;
+    public QuestionFragment(String text, JSONArray choices,int questionInd){
+        this.questionInd = questionInd;
         this.text=text;
         this.choices=choices;
     }
@@ -41,13 +43,15 @@ public class QuestionFragment extends Fragment {
         mSocket = MainActivity.mSocket;
 
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
-        Button choiceButton = rootView.findViewById(R.id.btnChoice1);
+        Button choiceButton;
         ArrayList<Button> choiceButtons = new ArrayList<>();
         LinearLayout buttonsLayout = rootView.findViewById(R.id.buttonsLayout);
         buttonsLayout.removeAllViews();
-        TextView questionTextView = rootView.findViewById(R.id.txtQuestion);
+        TextView txtQuestion = rootView.findViewById(R.id.txtQuestion);
+        TextView txtQuestionInd = rootView.findViewById(R.id.txtQuestionInd);
+        txtQuestionInd.setText(String.valueOf(questionInd));
 
-        questionTextView.setText(text);
+        txtQuestion.setText(text);
 
         for (int i=0; i<choices.length(); i++){
 

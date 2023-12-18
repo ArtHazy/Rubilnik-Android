@@ -105,13 +105,14 @@ public class QuizActivity extends AppCompatActivity {
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            currentQuestionInd++;
+
             JSONObject data = (JSONObject) args[0];
             try {
                 JSONObject question = data.getJSONObject("question");
+                currentQuestionInd = data.getInt("questionInd");
                 String text = question.getString("text");
                 JSONArray choices = question.getJSONArray("choices");
-                replaceFragment(new QuestionFragment(text,choices));
+                replaceFragment(new QuestionFragment(text,choices,currentQuestionInd));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
