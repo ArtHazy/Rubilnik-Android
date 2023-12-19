@@ -35,19 +35,18 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class MainFragment extends Fragment {
-    androidx.appcompat.widget.AppCompatButton btnConnect;
+    public static androidx.appcompat.widget.AppCompatButton btnConnect;
     androidx.appcompat.widget.AppCompatButton usernameButton;
 
-    Socket mSocket;
+    public static View rootView;
+
     public static EditText editTextKey;
     EditText editTextUsername;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        mSocket = ((MainActivity) requireActivity()).mSocket;
-        View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+        rootView = inflater.inflate(R.layout.main_fragment, container, false);
         btnConnect = rootView.findViewById(R.id.btnConnect);
         editTextUsername = rootView.findViewById(R.id.editTextName);
         //usernameButton = rootView.findViewById(R.id.usernameButton);
@@ -56,30 +55,16 @@ public class MainFragment extends Fragment {
         btnConnect.setOnClickListener((View v) ->{
             btnConnect.setClickable(false);
             btnConnect.setText("...");
-            //mSocket = new Socket(IO.socket(""));
-            if (!mSocket.connected()){mSocket.connect();}
+            MainActivity.mSocket.connect();
 
-            mSocket.on(Socket.EVENT_CONNECT, args -> {
-                btnConnect.setText(R.string.connect);
-                btnConnect.setClickable(true);
+            JSONObject data = new JSONObject();
 
-                JSONObject data = new JSONObject();
-
-                try {
-                    String roomId = editTextKey.getText().toString();
-                    data.put("roomId",roomId);
-                    data.put("userName",editTextUsername.getText().toString());
-                    mSocket.emit("join",data);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
-            mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
-                btnConnect.setText(R.string.connect);
-                btnConnect.setClickable(true);
-                mSocket.disconnect();
-            });
+            try {
+                String roomId = editTextKey.getText().toString();
+                data.put("roomId",roomId);
+                data.put("userName",editTextUsername.getText().toString());
+                MainActivity.mSocket.emit("join",data);
+            } catch (JSONException e) {MyTools.LogError(e);}
         });
         return rootView;
     }

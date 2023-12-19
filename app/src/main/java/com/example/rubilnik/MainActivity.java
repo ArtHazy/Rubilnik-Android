@@ -68,15 +68,24 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        IO.Options options = new IO.Options();
+        options.timeout = 5000;
         try {
-            mSocket = IO.socket("http://10.0.2.2:3000"); // TODO 10.0.2.2
+            mSocket = IO.socket("http://10.0.2.2:3000",options); // TODO 10.0.2.2
         } catch (URISyntaxException e) {MyTools.LogError(e);}
 
-        mSocket.on("joined", onJoined);
-    }
-    private Emitter.Listener onJoined = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
+
+        mSocket.on(Socket.EVENT_CONNECT, args -> {
+            runOnUiThread(() -> {MyTools.alert(context, "socket connected");});
+            MainFragment.btnConnect.setText(R.string.connect);
+            MainFragment.btnConnect.setClickable(true);
+        });
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+            runOnUiThread(()-> {MyTools.alert(context,"failed to establish socket connection");});
+            MainFragment.btnConnect.setText(R.string.connect);
+            MainFragment.btnConnect.setClickable(true);
+        });
+        mSocket.on("joined", args -> {
             JSONObject data = (JSONObject) args[0];
             String playerId = "";
             try {
@@ -90,14 +99,12 @@ public class MainActivity extends AppCompatActivity {
                 //
                 startActivity(quizIntent);
             } else {
-                runOnUiThread(()->{
-                    MyTools.alert(context,"room doesn't exist");
-                    mSocket.disconnect();
-                });
+                mSocket.disconnect();
+                runOnUiThread(()->{MyTools.alert(context,"room doesn't exist");});
             }
-        }
-    };
+        });
 
+    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();

@@ -37,6 +37,7 @@ public class QuizActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        runOnUiThread(()->{MyTools.alert(this,"room joined");});
 
         Intent intent = getIntent();
         playerId = intent.getStringExtra("playerId");
@@ -45,10 +46,6 @@ public class QuizActivity extends AppCompatActivity {
         currentQuestionInd=-1;
         replaceFragment(new WaitingFragment());
 
-
-
-        MainActivity.mSocket.on(Socket.EVENT_CONNECT, onConnect);
-        //mSocket.on("joined", onJoined);
         MainActivity.mSocket.on("join", onJoin);
         MainActivity.mSocket.on("leave", onLeave);
         MainActivity.mSocket.on("start", onStart);
@@ -68,11 +65,6 @@ public class QuizActivity extends AppCompatActivity {
         }
 
     }
-
-    private Emitter.Listener onConnect = args -> {
-        // Connected to the server
-    };
-
     private Emitter.Listener onJoin = args -> {
         JSONObject data = (JSONObject) args[0];
         String userName = "";
@@ -158,24 +150,23 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //MainActivity.mSocket.off(Socket.EVENT_CONNECT);
-        MainActivity.mSocket.off();
         MainActivity.mSocket.disconnect();
-        try {
-            IO.socket("http://10.0.2.2:3000").disconnect(); // TODO
-        } catch (URISyntaxException e) {MyTools.LogError(e);}
+//        MainActivity.mSocket.off();
+
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //MainActivity.mSocket.disconnect();
+        //MainActivity.mSocket.off();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         MainActivity.mSocket.disconnect();
-        try {
-            IO.socket("http://10.0.2.2:3000").disconnect(); // TODO
-        } catch (URISyntaxException e) {MyTools.LogError(e);}
+        //MainActivity.mSocket.off();
     }
-
-
-
 }
