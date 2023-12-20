@@ -26,4 +26,11 @@
     <string name="btnReturn">RETURN</string>
     <string name="result">RESULT</string>
     <string name="download">DOWNLOAD</string>
+
+    <string-array name="choiceName">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
 </resources>

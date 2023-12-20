@@ -5,11 +5,11 @@
         android:icon="@drawable/home"
         android:title=""
         android:checked="true"/>
-    <item
-        android:id="@+id/waiting"
-        android:icon="@drawable/user_profile"
-        android:title=""
-        android:checked="false"/>
+<!--    <item-->
+<!--        android:id="@+id/waiting"-->
+<!--        android:icon="@drawable/user_profile"-->
+<!--        android:title=""-->
+<!--        android:checked="false"/>-->
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings"

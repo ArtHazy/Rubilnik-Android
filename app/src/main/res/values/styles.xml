@@ -57,12 +57,30 @@
     <style name="btnChoice">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/greyDark</item>
-        <item name="android:background">@drawable/btn_choice_state</item>
         <item name="android:showText">true</item>
-        <item name="android:text">A</item>
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="btnChoiceA" parent="btnChoice">
+        <item name="android:text">A</item>
+        <item name="android:background">@drawable/btn_choice_state</item>
+    </style>
+
+    <style name="btnChoiceB" parent="btnChoice">
+        <item name="android:text">B</item>
+        <item name="android:background">@drawable/btn_choice_state</item>
+    </style>
+
+    <style name="btnChoiceC" parent="btnChoice">
+        <item name="android:text">C</item>
+        <item name="android:background">@drawable/btn_choice_state</item>
+    </style>
+
+    <style name="btnChoiceD" parent="btnChoice">
+        <item name="android:text">D</item>
+        <item name="android:background">@drawable/btn_choice_state</item>
     </style>
 
     <style name="swOnOff" parent="textMainAll">

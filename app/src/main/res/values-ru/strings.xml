@@ -27,4 +27,11 @@
     <string name="btnReturn">ВЕРНУТЬСЯ</string>
     <string name="result">ИТОГ</string>
     <string name="download">ЗАГРУЗКА</string>
+
+    <string-array name="choiceName">
+        <item>А</item>
+        <item>Б</item>
+        <item>В</item>
+        <item>Г</item>
+    </string-array>
 </resources>

@@ -2,9 +2,11 @@ package com.example.rubilnik.screens;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,6 +55,19 @@ public class QuestionFragment extends Fragment {
 
         txtQuestion.setText(text);
 
+        String[] btnColors = getResources().getStringArray(R.array.choiceColor);
+        String[] countChoice = {"A", "B", "C", "D"};
+
+        String[] ch = getResources().getStringArray(R.array.choiceColor);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(convertDP(5), convertDP(0), convertDP(5), convertDP(0));
+        params.width = convertDP(70);
+        params.height = convertDP(70);
+
         for (int i=0; i<choices.length(); i++){
 
             JSONObject choice;
@@ -61,10 +76,14 @@ public class QuestionFragment extends Fragment {
                 choice = choices.getJSONObject(i);
                 text = choice.getString("text");
             } catch (JSONException e) {MyTools.LogError(e);}
+
             if (text.length()>0) { // if choice exists
                 choiceButton = new Button(rootView.getContext());
                 choiceButton.setTextAppearance(R.style.btnChoice);
-                choiceButton.setText(text);
+                choiceButton.setBackgroundResource(R.drawable.btn_choice_state);
+                choiceButton.setLayoutParams(params);
+                choiceButton.setText(countChoice[i]);
+
                 int finalI = i;
                 choiceButton.setOnClickListener(v -> {
                     JSONObject data = new JSONObject();
@@ -87,5 +106,9 @@ public class QuestionFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    int convertDP(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 }

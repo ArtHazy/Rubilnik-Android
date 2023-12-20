@@ -1,13 +1,27 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid
-        android:color="@color/component_color"/>
-    <corners
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp"
-        />
-    <padding
-        android:left="10dp"
-        android:top="10dp"
-        android:right="10dp"
-        android:bottom="10dp" />
-</shape>
+<!--<vector xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:width="800dp"-->
+<!--    android:height="800dp"-->
+<!--    android:viewportWidth="500"-->
+<!--    android:viewportHeight="500">-->
+
+<!--    &lt;!&ndash;    //stroke-linecap="round" stroke-linejoin="round"&ndash;&gt;-->
+<!--    <path-->
+<!--        android:fillColor="@color/greyLight"-->
+<!--        android:strokeWidth="10"-->
+<!--        android:strokeColor="@color/greyDark"-->
+<!--        android:pathData="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"/>-->
+
+<!--</vector>-->
+
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+android:width="800dp"
+android:height="800dp"
+android:viewportWidth="500"
+android:viewportHeight="500">
+
+<!--    //stroke-linecap="round" stroke-linejoin="round"-->
+    <path
+        android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+</vector>

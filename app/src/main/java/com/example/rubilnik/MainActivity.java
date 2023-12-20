@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.main)
                 replaceFragment(new MainFragment());
-            else if (id == R.id.waiting)
-                replaceFragment(new WaitingFragment());
+//            else if (id == R.id.waiting)
+//                replaceFragment(new WaitingFragment());
             else if (id == R.id.settings)
                 replaceFragment(new SettingsFragment());
             return true;
