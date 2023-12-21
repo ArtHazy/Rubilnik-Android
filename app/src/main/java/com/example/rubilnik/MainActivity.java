@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static Context context;
 
-    Button btnConnect;
-
-//    private ListViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

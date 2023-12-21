@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class ResultFragment extends Fragment {
 
 
@@ -26,11 +28,14 @@ public class ResultFragment extends Fragment {
     public ResultFragment(JSONArray scores) {
         this.scores = scores;
     }
+    Button btnReturn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.result_fragment, container, false);
         LinearLayout leaderBoardLinLay = rootView.findViewById(R.id.leaderBoardLinLay);
+        btnReturn = rootView.findViewById(R.id.btnReturn);
+
         for (int i=0; i<scores.length();i++){
             String userId="";
             String userName="";
@@ -66,6 +71,9 @@ public class ResultFragment extends Fragment {
 
         }
 
+        btnReturn.setOnClickListener(v -> {
+//            requireActivity().finishActivity(0);
+        });
 
         return rootView;
     }
