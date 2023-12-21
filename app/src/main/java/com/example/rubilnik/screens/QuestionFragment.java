@@ -1,12 +1,11 @@
 package com.example.rubilnik.screens;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,10 +54,9 @@ public class QuestionFragment extends Fragment {
 
         txtQuestion.setText(text);
 
-        String[] btnColors = getResources().getStringArray(R.array.choiceColor);
-        String[] countChoice = {"A", "B", "C", "D"};
-
-        String[] ch = getResources().getStringArray(R.array.choiceColor);
+        String[] chName = getResources().getStringArray(R.array.choiceName);
+        int[] chStyle = {R.drawable.btn_choice_state1, R.drawable.btn_choice_state2, R.drawable.btn_choice_state3, R.drawable.btn_choice_state4};
+        Typeface typeface = getResources().getFont(R.font.font);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -80,9 +78,10 @@ public class QuestionFragment extends Fragment {
             if (text.length()>0) { // if choice exists
                 choiceButton = new Button(rootView.getContext());
                 choiceButton.setTextAppearance(R.style.btnChoice);
-                choiceButton.setBackgroundResource(R.drawable.btn_choice_state);
+                choiceButton.setTypeface(typeface);
                 choiceButton.setLayoutParams(params);
-                choiceButton.setText(countChoice[i]);
+                choiceButton.setText(chName[i]);
+                choiceButton.setBackgroundResource(chStyle[i]);
 
                 int finalI = i;
                 choiceButton.setOnClickListener(v -> {

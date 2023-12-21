@@ -63,26 +63,6 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="btnChoiceA" parent="btnChoice">
-        <item name="android:text">A</item>
-        <item name="android:background">@drawable/btn_choice_state</item>
-    </style>
-
-    <style name="btnChoiceB" parent="btnChoice">
-        <item name="android:text">B</item>
-        <item name="android:background">@drawable/btn_choice_state</item>
-    </style>
-
-    <style name="btnChoiceC" parent="btnChoice">
-        <item name="android:text">C</item>
-        <item name="android:background">@drawable/btn_choice_state</item>
-    </style>
-
-    <style name="btnChoiceD" parent="btnChoice">
-        <item name="android:text">D</item>
-        <item name="android:background">@drawable/btn_choice_state</item>
-    </style>
-
     <style name="swOnOff" parent="textMainAll">
         <item name="android:switchMinWidth">150dp</item>
         <item name="android:layout_marginTop">5dp</item>

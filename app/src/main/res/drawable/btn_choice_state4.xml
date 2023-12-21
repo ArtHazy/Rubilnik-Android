@@ -5,7 +5,7 @@
         android:state_pressed="true">
             <shape>
                 <solid
-                    android:color="@color/greyDark"/>
+                    android:color="@color/greyLight"/>
                 <corners
                     android:radius="5dp" />
                 <size
@@ -19,7 +19,7 @@
         android:state_pressed="true">
             <shape>
                 <solid
-                    android:color="@color/greyDark"/>
+                    android:color="@color/greyLight"/>
                 <corners
                     android:radius="5dp" />
                 <size
@@ -31,7 +31,7 @@
     <item>
         <shape>
             <solid
-                android:color="@color/btnColorOrange"/>
+                android:color="@color/btnColorWhite"/>
             <corners
                 android:radius="5dp" />
             <size
