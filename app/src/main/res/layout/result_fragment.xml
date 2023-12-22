@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/txtRatingPosInfo"
-        android:text="@string/txtRatingPosInfo"
-        style="@style/textMainEditText"/>
+        style="@style/textMainEditText"
+        android:text="-" />
 
     <TextView
         android:id="@+id/txtRightAnswers"
@@ -40,8 +40,8 @@
 
     <TextView
         android:id="@+id/txtRightAnswersInfo"
-        android:text="@string/txtRightAnswersInfo"
-        style="@style/textMainEditText"/>
+        style="@style/textMainEditText"
+        android:text="-" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnReturn"
