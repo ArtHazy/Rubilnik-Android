@@ -63,7 +63,6 @@ public class ResultFragment extends Fragment {
 
                     txtRatingPosInfo.setText(String.valueOf(++i));
                     txtRightAnswersInfo.setText(String.valueOf(scoreInt));
-
                 }
             } catch (JSONException e) {MyTools.LogError(e);}
 

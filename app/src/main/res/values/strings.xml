@@ -28,6 +28,17 @@
     <string name="result">RESULT</string>
     <string name="download">DOWNLOAD</string>
 
+    <!--Alerts-->
+    <string name="bark">Bark</string>
+    <string name="roomJoined">room joined</string>
+    <string name="joined">joined</string>
+    <string name="leftTheRoom">left the room</string>
+    <string name="quizStarted">quiz started</string>
+    <string name="socketConnected">socket connected</string>
+    <string name="failedToConnectSocket">failed to establish socket connection</string>
+    <string name="roomDoesntExist">room doesn\'t exist</string>
+
+
     <string-array name="choiceName">
         <item>A</item>
         <item>B</item>

@@ -29,6 +29,18 @@
     <string name="result">ИТОГ</string>
     <string name="download">ЗАГРУЗКА</string>
 
+    <!--Alerts-->
+    <string name="bark">гаф</string>
+    <string name="roomJoined">вход выполнен</string>
+    <string name="joined">присоединился</string>
+    <string name="leftTheRoom">покинул комнату</string>
+    <string name="quizStarted">Викторина началась</string>
+    <string name="socketConnected">Соединение установлено</string>
+    <string name="failedToConnectSocket">Соединение прервано</string>
+    <string name="roomDoesntExist">Комнаты не существует</string>
+
+
+
     <string-array name="choiceName">
         <item>А</item>
         <item>Б</item>

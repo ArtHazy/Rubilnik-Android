@@ -40,7 +40,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        runOnUiThread(()->{MyTools.alert(this,"room joined");});
+        runOnUiThread(()->{MyTools.alert(this,getString(R.string.roomJoined));});
 
         Intent intent = getIntent();
         playerId = intent.getStringExtra("playerId");
@@ -79,7 +79,7 @@ public class QuizActivity extends AppCompatActivity {
         if (userName.length()>0 && userId.length()>0){
             String finalUserId = userId;
             String finalUserName = userName;
-            runOnUiThread(()->{MyTools.alert(this,finalUserId+" "+finalUserName+" joined");});
+            runOnUiThread(()->{MyTools.alert(this,finalUserId+" "+finalUserName+" "+getString(R.string.joined));});
         }
     };
     private Emitter.Listener onLeave = args -> {
@@ -87,7 +87,7 @@ public class QuizActivity extends AppCompatActivity {
         try {
             String userId = data.getString("userId");
             String userName = data.getString("userName");
-            runOnUiThread(()->{MyTools.alert(this,userId+" "+userName+" left the room");});
+            runOnUiThread(()->{MyTools.alert(this,userId+" "+userName+" "+getString(R.string.leftTheRoom));});
             if (userId==currentRoomId){ // host left
                 replaceFragment(new WaitingFragment());
             }
@@ -96,7 +96,7 @@ public class QuizActivity extends AppCompatActivity {
     };
     private Emitter.Listener onStart = args -> {
         runOnUiThread(() -> {
-            MyTools.alert(this,"quiz started");
+            MyTools.alert(this,getString(R.string.quizStarted));
         });
     };
     private Emitter.Listener onNext = new Emitter.Listener() {
@@ -147,7 +147,7 @@ public class QuizActivity extends AppCompatActivity {
             msg = data.getString("msg");
         } catch (JSONException e) {MyTools.LogError(e);}
         String finalMsg = msg;
-        runOnUiThread(()->{MyTools.alert(this,finalMsg);});
+        runOnUiThread(()->{MyTools.alert(this,getString(R.string.bark));});
     };
 
     @Override

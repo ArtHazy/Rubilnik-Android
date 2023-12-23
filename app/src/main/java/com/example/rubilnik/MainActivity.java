@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         mSocket.on(Socket.EVENT_CONNECT, args -> {
-            runOnUiThread(() -> {MyTools.alert(context, "socket connected");});
+            runOnUiThread(() -> {MyTools.alert(context, getString(R.string.socketConnected));});
             MainFragment.btnConnect.setText(R.string.connect);
             MainFragment.btnConnect.setClickable(true);
         });
         mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
-            runOnUiThread(()-> {MyTools.alert(context,"failed to establish socket connection");});
+            runOnUiThread(()-> {MyTools.alert(context,getString(R.string.failedToConnectSocket));});
             MainFragment.btnConnect.setText(R.string.connect);
             MainFragment.btnConnect.setClickable(true);
         });
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(quizIntent);
             } else {
                 mSocket.disconnect();
-                runOnUiThread(()->{MyTools.alert(context,"room doesn't exist");});
+                runOnUiThread(()->{MyTools.alert(context,getString(R.string.roomDoesntExist));});
             }
         });
 
