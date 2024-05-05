@@ -3,6 +3,7 @@ package com.example.rubilnik;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.example.rubilnik.screens.WaitingFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONString;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class QuizActivity extends AppCompatActivity {
-    static public String playerId;
+    static public String roommates;
     static public String msg;
     static public String currentRoomId;
     static public int currentQuestionInd;
@@ -43,8 +45,15 @@ public class QuizActivity extends AppCompatActivity {
         runOnUiThread(()->{MyTools.alert(this,getString(R.string.roomJoined));});
 
         Intent intent = getIntent();
-        playerId = intent.getStringExtra("playerId");
-        currentRoomId = intent.getStringExtra("currentRoomId");
+        roommates = intent.getStringExtra("roommates");
+        Log.d("erer", roommates);
+//        currentRoomId = intent.getStringExtra("currentRoomId");
+        try {
+            JSONArray roommatesArray = new JSONArray("roommates");
+            Log.d("erer", String.valueOf(roommatesArray));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         currentQuestionInd=-1;
         replaceFragment(new WaitingFragment());
@@ -72,9 +81,12 @@ public class QuizActivity extends AppCompatActivity {
         JSONObject data = (JSONObject) args[0];
         String userName = "";
         String userId = "";
+        JSONArray roommatesArray = null;
         try {
             userName = data.getString("userName");
             userId = data.getString("userId");
+            roommatesArray = data.getJSONArray("roommates");
+            Log.d("erer", String.valueOf(roommatesArray));
         } catch (JSONException e) {MyTools.LogError(e);}
         if (userName.length()>0 && userId.length()>0){
             String finalUserId = userId;
@@ -102,7 +114,6 @@ public class QuizActivity extends AppCompatActivity {
     private Emitter.Listener onNext = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-
             JSONObject data = (JSONObject) args[0];
             try {
                 JSONObject question = data.getJSONObject("question");
@@ -120,25 +131,37 @@ public class QuizActivity extends AppCompatActivity {
         try {
             String userId = data.getString("userId");
             int questionInd = data.getInt("questionInd");
-            int choiceInd = data.getInt("choiceInd");
+            JSONArray choices = data.getJSONArray("choices");
+            int choiceInd = choices.getInt(0);
+            Log.d("erer", String.valueOf(choiceInd));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     };
     private Emitter.Listener onReveal = args -> {
         JSONObject data = (JSONObject) args[0];
-        int choiceInd;
+        JSONArray correctChoicesInd;
         try {
-            choiceInd = data.getInt("choiceInd");
+            correctChoicesInd = data.getJSONArray("correctChoicesInd");
+            Log.d("erer", String.valueOf(correctChoicesInd));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     };
-    private Emitter.Listener onEnd = args -> {
+    private Emitter.Listener onScores = args -> {
         JSONObject data = (JSONObject) args[0];
-        JSONArray scores = new JSONArray();
-        try {scores = data.getJSONArray("scores");} catch (JSONException e) {MyTools.LogError(e);}
-        replaceFragment(new ResultFragment(scores));
+        JSONArray usersScores;
+
+        try {
+            usersScores = data.getJSONArray("usersScores");
+            Log.d("erer", String.valueOf(usersScores));
+        }
+        catch (JSONException e) {MyTools.LogError(e);}
+    };
+    private Emitter.Listener onEnd = args -> {
+        runOnUiThread(() -> {
+            MyTools.alert(this, "quiz ended");
+        });
     };
     private Emitter.Listener onBark = args -> {
         JSONObject data = (JSONObject) args[0];

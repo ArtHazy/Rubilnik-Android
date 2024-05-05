@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -83,15 +84,15 @@ public class MainActivity extends AppCompatActivity {
         });
         mSocket.on("joined", args -> {
             JSONObject data = (JSONObject) args[0];
-            String playerId = "";
+            JSONArray roommates = null;
             try {
-                playerId = data.getString("playerId");
+                roommates = data.getJSONArray("roommates");
             } catch (JSONException e) {MyTools.LogError(e);}
-            if (playerId.length()>0) { // подключен успешно (переход на quiz activity)
+            if (roommates.length()>0) { // подключен успешно (переход на quiz activity)
                 Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
                 // Optional parameters
-                quizIntent.putExtra("playerId", playerId);
-                quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
+                quizIntent.putExtra("roommates", roommates.toString());
+                //quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
                 //
                 startActivity(quizIntent);
             } else {

@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.example.rubilnik.MainActivity;
 import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
-import com.example.rubilnik.SetUserNameDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -89,7 +89,7 @@ public class QuestionFragment extends Fragment {
                     int choiceInd = finalI;
                     try {
                         data.put("roomId",QuizActivity.currentRoomId);
-                        data.put("userId",QuizActivity.playerId);
+//                        data.put("userId",QuizActivity.playerId);
                         data.put("questionInd", QuizActivity.currentQuestionInd);
                         data.put("choiceInd",choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
