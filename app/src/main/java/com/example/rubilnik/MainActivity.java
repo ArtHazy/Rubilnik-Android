@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     public static Context context;
-    public boolean backIsEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new ScannerQRFragment());
-
-        backIsEnabled = false;
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -127,12 +124,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (backIsEnabled) {
+        if (bottomNavigationView.getSelectedItemId() == R.id.main) {
             super.onBackPressed();
         }
         replaceFragment(new MainFragment());
         bottomNavigationView.setSelectedItemId(R.id.main);
-        backIsEnabled = true;
     }
 
 }
