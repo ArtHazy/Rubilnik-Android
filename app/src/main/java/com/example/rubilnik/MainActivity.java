@@ -1,36 +1,33 @@
 package com.example.rubilnik;
 
-import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.rubilnik.screens.MainFragment;
-import com.example.rubilnik.screens.SettingsFragment;
-import com.example.rubilnik.screens.WaitingFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+
+import com.example.rubilnik.screens.MainFragment;
+import com.example.rubilnik.screens.ScannerQRFragment;
+import com.example.rubilnik.screens.SettingsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
+import java.util.Objects;
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
-
-import java.net.URISyntaxException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     public static Context context;
+    public boolean backIsEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +50,17 @@ public class MainActivity extends AppCompatActivity {
         // Register event handlers
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
-        replaceFragment(new MainFragment());
+        replaceFragment(new ScannerQRFragment());
+
+        backIsEnabled = false;
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.main)
                 replaceFragment(new MainFragment());
-//            else if (id == R.id.waiting)
-//                replaceFragment(new WaitingFragment());
+            else if (id == R.id.scanner)
+                replaceFragment(new ScannerQRFragment());
             else if (id == R.id.settings)
                 replaceFragment(new SettingsFragment());
             return true;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -121,6 +123,16 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backIsEnabled) {
+            super.onBackPressed();
+        }
+        replaceFragment(new MainFragment());
+        bottomNavigationView.setSelectedItemId(R.id.main);
+        backIsEnabled = true;
     }
 
 }

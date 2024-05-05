@@ -19,7 +19,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/txtRusult"
+        android:id="@+id/txtResult"
         android:text="@string/result"
         style="@style/textMainRub"/>
 

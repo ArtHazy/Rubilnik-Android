@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.MainFragment"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/txtRub">
+        <TextView
+            android:text="@string/app_name1"
+            style="@style/textMainRub"/>
+        <TextView
+            android:text="@string/app_name2"
+            style="@style/textMainRub"
+            android:layout_marginStart="0dp"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.budiyev.android.codescanner.CodeScannerView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoFocusButtonVisible="false"
+            app:flashButtonVisible="false"
+            app:frameColor="@color/greyLight"
+            app:frameCornersSize="50dp"
+            app:frameCornersRadius="30dp"
+            app:frameAspectRatioWidth="1"
+            app:frameAspectRatioHeight="1"
+            app:frameSize="0.75"
+            app:frameThickness="2dp"
+            app:frameVerticalBias="0.5"
+            app:maskColor="#77000000"/>
+    </FrameLayout>
+
+</LinearLayout>

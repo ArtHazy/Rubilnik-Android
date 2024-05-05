@@ -51,19 +51,19 @@ public class ResultFragment extends Fragment {
 
                 userId = score.getString("userId");
 
-                if (userId.equals(QuizActivity.playerId)){
-
-                    userName = score.getString("userName");
-                    Toast.makeText(rootView.getContext(),userId,Toast.LENGTH_SHORT).show();
-                    Toast.makeText(rootView.getContext(),userName,Toast.LENGTH_SHORT).show();
-                    int scoreInt = score.getInt("score");
-
-                    TextView txtRatingPosInfo = rootView.findViewById(R.id.txtRatingPosInfo);
-                    TextView txtRightAnswersInfo = rootView.findViewById(R.id.txtRightAnswersInfo);
-
-                    txtRatingPosInfo.setText(String.valueOf(++i));
-                    txtRightAnswersInfo.setText(String.valueOf(scoreInt));
-                }
+//                if (userId.equals(QuizActivity.playerId)){
+//
+//                    userName = score.getString("userName");
+//                    Toast.makeText(rootView.getContext(),userId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(rootView.getContext(),userName,Toast.LENGTH_SHORT).show();
+//                    int scoreInt = score.getInt("score");
+//
+//                    TextView txtRatingPosInfo = rootView.findViewById(R.id.txtRatingPosInfo);
+//                    TextView txtRightAnswersInfo = rootView.findViewById(R.id.txtRightAnswersInfo);
+//
+//                    txtRatingPosInfo.setText(String.valueOf(++i));
+//                    txtRightAnswersInfo.setText(String.valueOf(scoreInt));
+//                }
             } catch (JSONException e) {MyTools.LogError(e);}
 
         }
