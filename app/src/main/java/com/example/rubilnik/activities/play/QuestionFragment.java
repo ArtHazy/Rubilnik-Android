@@ -1,4 +1,4 @@
-package com.example.rubilnik.screens;
+package com.example.rubilnik.activities.play;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.rubilnik.MainActivity;
 import com.example.rubilnik.MyTools;
-import com.example.rubilnik.QuizActivity;
 import com.example.rubilnik.R;
 
 import org.json.JSONArray;
@@ -23,11 +21,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import io.socket.client.Socket;
-
 public class QuestionFragment extends Fragment {
 
-    Socket mSocket;
     String text;
     JSONArray choices;
     int questionInd;
@@ -40,8 +35,6 @@ public class QuestionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        mSocket = MainActivity.mSocket;
 
         View rootView = inflater.inflate(R.layout.question_fragment, container, false);
         Button choiceButton;
@@ -90,20 +83,18 @@ public class QuestionFragment extends Fragment {
                     try {
                         data.put("roomId",QuizActivity.currentRoomId);
 //                        data.put("userId",QuizActivity.playerId);
-                        data.put("questionInd", QuizActivity.currentQuestionInd);
+                        data.put("questionInd", QuizActivity.questionInd);
                         data.put("choiceInd",choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
                     for (Button chButton:choiceButtons) {
                         chButton.setClickable(false);
                     }
-                    mSocket.emit("choice", data);
+                    QuizActivity.socket.emit("choice", data);
                 });
                 buttonsLayout.addView(choiceButton);
                 choiceButtons.add(choiceButton);
             }
         }
-
-
         return rootView;
     }
 

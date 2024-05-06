@@ -1,4 +1,4 @@
-package com.example.rubilnik.screens;
+package com.example.rubilnik.activities.main;
 
 import android.os.Bundle;
 

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyTools {
     public static void LogError(Exception e){

@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.AccountFragment">
+    tools:context=".activities.main.AccountFragment">
 
     <TextView
         android:id="@+id/txtProfile"
+        style="@style/textMainRub"
         android:text="@string/profile"
-        style="@style/textMainRub"/>
+        android:textSize="34sp" />
 
 </LinearLayout>

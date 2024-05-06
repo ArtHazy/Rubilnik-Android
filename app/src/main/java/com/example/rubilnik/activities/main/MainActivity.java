@@ -1,4 +1,4 @@
-package com.example.rubilnik;
+package com.example.rubilnik.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 
-import com.example.rubilnik.screens.MainFragment;
-import com.example.rubilnik.screens.ScannerQRFragment;
-import com.example.rubilnik.screens.SettingsFragment;
+import com.example.rubilnik.MyTools;
+import com.example.rubilnik.R;
+import com.example.rubilnik.activities.play.QuizActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -24,26 +24,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.util.Objects;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
 
 public class MainActivity extends AppCompatActivity {
-
     public static FragmentManager fragmentManager;
-    public static Socket mSocket;
     NavController navController;
     BottomNavigationView bottomNavigationView;
-
-    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = MainActivity.this;
         fragmentManager = getSupportFragmentManager();
         //NAVIGATION
         // Register event handlers
@@ -51,11 +45,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new ScannerQRFragment());
 
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.main)
-                replaceFragment(new MainFragment());
+                replaceFragment(new JoinFragment());
             else if (id == R.id.scanner)
                 replaceFragment(new ScannerQRFragment());
             else if (id == R.id.settings)
@@ -63,41 +56,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        IO.Options options = new IO.Options();
-        options.timeout = 5000;
-        try {
-            mSocket = IO.socket("http://10.0.2.2:3000",options); // TODO 10.0.2.2
-        } catch (URISyntaxException e) {MyTools.LogError(e);}
+//        IO.Options options = new IO.Options();
+//        options.timeout = 5000;
 
 
-        mSocket.on(Socket.EVENT_CONNECT, args -> {
-            runOnUiThread(() -> {MyTools.alert(context, getString(R.string.socketConnected));});
-            MainFragment.btnConnect.setText(R.string.connect);
-            MainFragment.btnConnect.setClickable(true);
-        });
-        mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
-            runOnUiThread(()-> {MyTools.alert(context,getString(R.string.failedToConnectSocket));});
-            MainFragment.btnConnect.setText(R.string.connect);
-            MainFragment.btnConnect.setClickable(true);
-        });
-        mSocket.on("joined", args -> {
-            JSONObject data = (JSONObject) args[0];
-            JSONArray roommates = null;
-            try {
-                roommates = data.getJSONArray("roommates");
-            } catch (JSONException e) {MyTools.LogError(e);}
-            if (roommates.length()>0) { // подключен успешно (переход на quiz activity)
-                Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
-                // Optional parameters
-                quizIntent.putExtra("roommates", roommates.toString());
-                //quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
-                //
-                startActivity(quizIntent);
-            } else {
-                mSocket.disconnect();
-                runOnUiThread(()->{MyTools.alert(context,getString(R.string.roomDoesntExist));});
-            }
-        });
+        //        Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
+//                // Optional parameters
+//                quizIntent.putExtra("roommates", roommates.toString());
+//                //quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
+//                //
+//                startActivity(quizIntent);
 
 
     }
@@ -127,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if (bottomNavigationView.getSelectedItemId() == R.id.main) {
             super.onBackPressed();
         }
-        replaceFragment(new MainFragment());
+        replaceFragment(new JoinFragment());
         bottomNavigationView.setSelectedItemId(R.id.main);
     }
 

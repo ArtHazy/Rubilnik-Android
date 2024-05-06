@@ -1,7 +1,5 @@
-package com.example.rubilnik.screens;
+package com.example.rubilnik.activities.main;
 
-import com.example.rubilnik.screens.MainFragment;
-import com.example.rubilnik.MainActivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,16 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.rubilnik.R;
 import com.google.zxing.Result;
-
-import java.util.Objects;
 
 
 public class ScannerQRFragment extends Fragment  {

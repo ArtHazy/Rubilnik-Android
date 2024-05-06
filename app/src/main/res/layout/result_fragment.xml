@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".screens.ResultFragment"
+    tools:context=".activities.play.ResultFragment"
     android:background="@android:color/transparent">
 
     <ScrollView

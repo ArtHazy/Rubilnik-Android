@@ -1,4 +1,4 @@
-package com.example.rubilnik.screens;
+package com.example.rubilnik.activities.play;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,23 +11,25 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.rubilnik.QuizActivity;
 import com.example.rubilnik.R;
 
-public class WaitingFragment extends Fragment {
+public class LobbyFragment extends Fragment {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch aSwitchThemes;
     TextView textViewDownload;
+    String roomId;
 
-
+    LobbyFragment(String roomId){
+        this.roomId = roomId;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.waiting_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.lobby_fragment, container, false);
         aSwitchThemes = rootView.findViewById(R.id.swWaitingThemes);
         textViewDownload = rootView.findViewById(R.id.txtDownload);
-        textViewDownload.setText("Комната "+QuizActivity.currentRoomId);
+        textViewDownload.setText(getString(R.string.room)+" "+roomId);
 
         aSwitchThemes.setOnCheckedChangeListener ((buttonView, isChecked) -> {
             if (!isChecked) {
@@ -38,7 +40,6 @@ public class WaitingFragment extends Fragment {
                 textViewDownload.setTextColor(ContextCompat.getColor(requireContext(), R.color.cineDark));
             }
         });
-
         return rootView;
     }
 }

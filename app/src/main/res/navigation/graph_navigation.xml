@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.example.rubilnik.screens.MainFragment"
+        android:name="com.example.rubilnik.activities.main.JoinFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" />
     <fragment
         android:id="@+id/waiting"
-        android:name="com.example.rubilnik.screens.WaitingFragment"
+        android:name="com.example.rubilnik.activities.play.LobbyFragment"
         android:label="waiting_fragment"
         tools:layout="@layout/waiting_fragment" />
     <fragment
         android:id="@+id/settings"
-        android:name="com.example.rubilnik.screens.SettingsFragment"
+        android:name="com.example.rubilnik.activities.main.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
 </navigation>

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">РУБИЛЬНИК</string>
     <string name="app_name1">РУБИЛЬ</string>
     <string name="app_name2">НИК</string>
@@ -28,6 +29,7 @@
     <string name="btnReturn">ВЕРНУТЬСЯ</string>
     <string name="result">ИТОГ</string>
     <string name="download">ЗАГРУЗКА</string>
+    <string name="room">Комната</string>
 
     <!--Alerts-->
     <string name="bark">гаф</string>

@@ -1,27 +1,20 @@
-package com.example.rubilnik.screens;
+package com.example.rubilnik.activities.play;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.rubilnik.MainActivity;
 import com.example.rubilnik.MyTools;
-import com.example.rubilnik.QuizActivity;
 import com.example.rubilnik.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Objects;
 
 public class ResultFragment extends Fragment {
 

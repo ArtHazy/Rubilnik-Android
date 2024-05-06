@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">RUBILNIK</string>
     <string name="app_name1">RUBIL</string>
     <string name="app_name2">NIK</string>
@@ -27,6 +28,7 @@
     <string name="btnReturn">RETURN</string>
     <string name="result">RESULT</string>
     <string name="download">DOWNLOAD</string>
+    <string name="room">Room</string>
 
     <!--Alerts-->
     <string name="bark">Bark</string>
