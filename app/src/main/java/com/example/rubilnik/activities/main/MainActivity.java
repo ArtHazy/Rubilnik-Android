@@ -2,11 +2,13 @@ package com.example.rubilnik.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import androidx.navigation.NavController;
 
 import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
+import com.example.rubilnik.activities.play.LobbyFragment;
 import com.example.rubilnik.activities.play.QuizActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,25 +33,33 @@ import io.socket.client.Socket;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static FragmentManager fragmentManager;
-    NavController navController;
-    BottomNavigationView bottomNavigationView;
+//    NavController navController;
+    private BottomNavigationView bottomNavigationView;
+
+    public static String userName = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentManager = getSupportFragmentManager();
+        // Блокировка ориентации на портретный режим
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
         //NAVIGATION
         // Register event handlers
         //NAVIGATION
         bottomNavigationView = findViewById(R.id.menuBottom);
         replaceFragment(new ScannerQRFragment());
 
+//        JoinFragment joinFragment = new JoinFragment();
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.main)
+            if (id == R.id.main) {
                 replaceFragment(new JoinFragment());
+                Toast.makeText(this, MainActivity.userName, Toast.LENGTH_SHORT).show();
+            }
             else if (id == R.id.scanner)
                 replaceFragment(new ScannerQRFragment());
             else if (id == R.id.settings)
@@ -83,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -93,10 +104,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (bottomNavigationView.getSelectedItemId() == R.id.main) {
-            super.onBackPressed();
+//            android.app.Fragment fragment = getFragmentManager().findFragmentById(R.layout.lobby_fragment);
+//            if(fragment.isVisible()) {
+//                replaceFragment(new JoinFragment());
+//            }
+////            notification for EXIT
+//            else
+                super.onBackPressed();
         }
         replaceFragment(new JoinFragment());
         bottomNavigationView.setSelectedItemId(R.id.main);
     }
-
 }

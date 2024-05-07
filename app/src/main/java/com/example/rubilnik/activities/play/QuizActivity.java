@@ -1,5 +1,6 @@
 package com.example.rubilnik.activities.play;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -35,8 +36,11 @@ public class QuizActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        // Блокировка ориентации на портретный режим
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         try {
-            socket = IO.socket("http://192.168.0.7:3000").connect();
+            socket = IO.socket("http://192.168.0.174:3000").connect();
         } catch (URISyntaxException e) {throw new RuntimeException(e);}
 
         roomId = (String) getIntent().getExtras().get("roomId");

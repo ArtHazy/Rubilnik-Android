@@ -9,7 +9,7 @@
         android:id="@+id/main"
         android:name="com.example.rubilnik.activities.main.JoinFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/join_fragment" />
     <fragment
         android:id="@+id/waiting"
         android:name="com.example.rubilnik.activities.play.LobbyFragment"

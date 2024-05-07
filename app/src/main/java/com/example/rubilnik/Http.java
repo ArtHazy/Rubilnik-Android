@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Http extends AsyncTask<Void, Void, String> {
-    private static final String urlString = "http://10.0.2.2:3000/test"; // localhost
+    private static final String urlString = "http://192.168.0.174:3000/test"; // localhost
     private Context context;
 
     public Http(Context context) {

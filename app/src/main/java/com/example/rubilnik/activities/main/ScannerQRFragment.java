@@ -2,6 +2,7 @@ package com.example.rubilnik.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.ScanMode;
 import com.example.rubilnik.R;
+import com.example.rubilnik.activities.play.QuizActivity;
 
 
 public class ScannerQRFragment extends Fragment  {
@@ -46,6 +48,14 @@ public class ScannerQRFragment extends Fragment  {
 
         mCodeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             code = result.getText();
+
+//            if (isNOTEmpty(MainActivity.userName.trim())) {
+                Intent playIntent = new Intent(requireContext(), QuizActivity.class);
+                playIntent.putExtra("roomId", code.trim());
+                playIntent.putExtra("userName", MainActivity.userName.trim());
+                startActivity(playIntent);
+//            }
+
             activity.onBackPressed();
         }));
 
@@ -93,5 +103,14 @@ public class ScannerQRFragment extends Fragment  {
                 Toast.makeText(requireActivity(), "Чтобы использовать камеру, разрешите использовать камеру", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private boolean isNOTEmpty(String text) {
+        if (text.isEmpty()) {
+            // Создание уведомления о незаполненном поле
+            Toast.makeText(requireContext(), "Введите имя!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else return true;
     }
 }
