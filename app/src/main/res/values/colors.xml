@@ -5,11 +5,13 @@
     <color name="component_color">#33ECECEC</color>
 
     <color name="greyHint">#525252</color>
+    <color name="greyHintLight">#727272</color>
 
     <color name="greyLight">#B0B0B0</color>
     <color name="greyDark">#242424</color>
     <color name="cineDark">#065452</color>
     <color name="yellow">#D6BF81</color>
+    <color name="yellowDark">#8A7B53</color>
     <color name="cineLight">#0FD4CD</color>
     <color name="pink">#D6768E</color>
     <color name="cineBottomBar">#44A9A6</color>

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 //    NavController navController;
     private BottomNavigationView bottomNavigationView;
 
-    public static String userName = "test";
+    public static String userName = "TEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

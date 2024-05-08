@@ -39,6 +39,7 @@
     <string name="socketConnected">socket connected</string>
     <string name="failedToConnectSocket">failed to establish socket connection</string>
     <string name="roomDoesntExist">room doesn\'t exist</string>
+    <string name="waiting_for_the_host">waiting for the host…</string>
 
 
     <string-array name="choiceName">
