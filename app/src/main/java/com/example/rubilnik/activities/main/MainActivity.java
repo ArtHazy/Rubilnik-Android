@@ -3,9 +3,12 @@ package com.example.rubilnik.activities.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -62,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (id == R.id.scanner)
                 replaceFragment(new ScannerQRFragment());
-            else if (id == R.id.settings)
+            else if (id == R.id.settings) {
                 replaceFragment(new SettingsFragment());
+            }
             return true;
         });
 

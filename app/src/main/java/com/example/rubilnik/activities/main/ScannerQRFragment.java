@@ -55,8 +55,6 @@ public class ScannerQRFragment extends Fragment  {
                 playIntent.putExtra("userName", MainActivity.userName.trim());
                 startActivity(playIntent);
 //            }
-
-            activity.onBackPressed();
         }));
 
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());

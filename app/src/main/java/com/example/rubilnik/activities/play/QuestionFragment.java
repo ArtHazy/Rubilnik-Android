@@ -1,14 +1,17 @@
 package com.example.rubilnik.activities.play;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class QuestionFragment extends Fragment {
 
@@ -44,6 +48,13 @@ public class QuestionFragment extends Fragment {
         TextView txtQuestion = rootView.findViewById(R.id.txtQuestion);
         TextView txtQuestionInd = rootView.findViewById(R.id.txtQuestionInd);
         txtQuestionInd.setText(String.valueOf(++questionInd));
+
+        ViewGroup decorView = (ViewGroup) requireActivity().getWindow().getDecorView();
+        View overlayView = new View(requireActivity());
+        ViewGroup.LayoutParams params_blackout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        // Создаем новый полупрозрачный View
+        overlayView.setLayoutParams(params_blackout);
+        overlayView.setBackgroundColor(Color.parseColor("#80000000")); // Устанавливаем цвет и прозрачность слоя
 
         txtQuestion.setText(text);
 
@@ -84,17 +95,27 @@ public class QuestionFragment extends Fragment {
                         data.put("roomId",QuizActivity.currentRoomId);
 //                        data.put("userId",QuizActivity.playerId);
                         data.put("questionInd", QuizActivity.questionInd);
-                        data.put("choiceInd",choiceInd);
+                        data.put("choiceInd", choiceInd);
                     } catch (JSONException e) {throw new RuntimeException(e);}
                     for (Button chButton:choiceButtons) {
                         chButton.setClickable(false);
                     }
                     QuizActivity.socket.emit("choice", data);
+
+                    // Добавляем View поверх текущего содержимого
+                    decorView.addView(overlayView);
+
+
                 });
                 buttonsLayout.addView(choiceButton);
                 choiceButtons.add(choiceButton);
+
+//                // Для удаления слоя затемнения
+//                decorView.removeView(overlayView);
             }
         }
+//        // Для удаления слоя затемнения
+//        decorView.removeView(overlayView);
         return rootView;
     }
 
