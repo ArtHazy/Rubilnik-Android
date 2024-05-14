@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="yellow" format="color"/>
+    <attr name="greyAdd" format="color"/>
+    <attr name="greyMain" format="color"/>
+    <attr name="cine" format="color"/>
+    <attr name="greyHint" format="color"/>
+    <attr name="cineBottomBar" format="color"/>
+    <attr name="blackout" format="color"/>
+<!--    <attr name="greyMain" format="color"/>-->
+</resources>

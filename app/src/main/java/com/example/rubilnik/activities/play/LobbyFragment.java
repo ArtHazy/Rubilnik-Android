@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.R;
-import com.example.rubilnik.activities.main.MainActivity;
+import com.example.rubilnik.activities.main.JoinFragment;
 
 public class LobbyFragment extends Fragment {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -23,6 +23,7 @@ public class LobbyFragment extends Fragment {
     LobbyFragment(String roomId){
         this.roomId = roomId;
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,20 +34,13 @@ public class LobbyFragment extends Fragment {
         textViewUserName = rootView.findViewById(R.id.textViewUserName);
         textViewWaiting = rootView.findViewById(R.id.textViewWaiting);
         textViewDownload.setText(getString(R.string.room)+" "+roomId);
-        textViewUserName.setText(MainActivity.userName);
+        textViewUserName.setText(JoinFragment.getUserName());
 
-        aSwitchThemes.setOnCheckedChangeListener ((buttonView, isChecked) -> {
-            if (!isChecked) {
-                rootView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.greyDark));
-                textViewDownload.setTextColor(ContextCompat.getColor(requireContext(), R.color.cineLight));
-                textViewWaiting.setTextColor(ContextCompat.getColor(requireContext(), R.color.greyHintLight));
-                textViewUserName.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow));
-            } else {
-                rootView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.greyLight));
-                textViewDownload.setTextColor(ContextCompat.getColor(requireContext(), R.color.cineDark));
-                textViewWaiting.setTextColor(ContextCompat.getColor(requireContext(), R.color.greyHint));
-                textViewUserName.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellowDark));
-            }
+        aSwitchThemes.setOnClickListener ((v) -> {
+            rootView.setBackgroundColor(ContextCompat.getColor(LobbyFragment.this.requireContext(), R.attr.greyMain));
+            textViewDownload.setTextColor(ContextCompat.getColor(LobbyFragment.this.requireContext(), R.attr.cine));
+            textViewWaiting.setTextColor(ContextCompat.getColor(LobbyFragment.this.requireContext(), R.attr.greyHint));
+            textViewUserName.setTextColor(ContextCompat.getColor(LobbyFragment.this.requireContext(), R.attr.yellow));
         });
         return rootView;
     }

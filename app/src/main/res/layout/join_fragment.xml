@@ -19,7 +19,7 @@
             android:text="@string/app_name2"
             style="@style/textMainRub"
             android:layout_marginStart="0dp"
-            android:textColor="@color/yellow"/>
+            android:textColor="?attr/yellow"/>
     </LinearLayout>
 
     <TextView
@@ -45,7 +45,7 @@
         android:hint="@string/enter_name"
         android:imeOptions="flagForceAscii"
         android:maxLength="12"
-        android:textColorHint="@color/greyHint" />
+        android:textColorHint="?attr/greyHint" />
 
     <TextView
         android:id="@+id/txtSession"
@@ -58,7 +58,7 @@
         style="@style/textMainEditText"
         android:imeOptions="flagForceAscii"
 
-        android:textColorHint="@color/greyHint"
+        android:textColorHint="?attr/greyHint"
         android:maxLength="4"
         android:clickable="true"
         android:focusableInTouchMode="true"

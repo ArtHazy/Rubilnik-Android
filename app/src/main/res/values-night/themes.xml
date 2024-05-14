@@ -1,6 +1,0 @@
-<resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Rubilnik" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/greyDark</item>
-    </style>
-</resources>

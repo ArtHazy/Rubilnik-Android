@@ -2,9 +2,11 @@ package com.example.rubilnik.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,11 +42,21 @@ import io.socket.client.Socket;
 public class MainActivity extends AppCompatActivity {
 //    NavController navController;
     private BottomNavigationView bottomNavigationView;
-
-    public static String userName = "TEST";
+    public static boolean nightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        String themeName = pref.getString(SettingsFragment.getPrefTheme(), "Theme_Dark");
+        if (themeName.equals("Theme_Light")) {
+            setTheme(R.style.Theme_Light);
+        } else if (themeName.equals("Theme_Dark")) {
+            //Toast.makeText(this, "set theme", Toast.LENGTH_SHORT).show();
+            setTheme(R.style.Theme_Dark);
+        }
+
+        Toast.makeText(this, themeName, Toast.LENGTH_SHORT).show();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Блокировка ориентации на портретный режим
@@ -61,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.main) {
                 replaceFragment(new JoinFragment());
-                Toast.makeText(this, MainActivity.userName, Toast.LENGTH_SHORT).show();
             }
             else if (id == R.id.scanner)
                 replaceFragment(new ScannerQRFragment());
@@ -81,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 //                //quizIntent.putExtra("currentRoomId", MainFragment.editTextKey.getText().toString());
 //                //
 //                startActivity(quizIntent);
-
 
     }
     @Override
@@ -118,5 +130,12 @@ public class MainActivity extends AppCompatActivity {
         }
         replaceFragment(new JoinFragment());
         bottomNavigationView.setSelectedItemId(R.id.main);
+    }
+
+    //Ловим перезапуск Активити, когда меняем тему
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        replaceFragment(new SettingsFragment());
     }
 }

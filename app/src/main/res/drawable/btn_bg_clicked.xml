@@ -6,5 +6,5 @@
         android:width="210dp"/>
     <stroke
         android:width="4dp"
-        android:color="@color/yellow"/>
+        android:color="?attr/yellow"/>
 </shape>

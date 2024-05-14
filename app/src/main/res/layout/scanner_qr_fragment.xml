@@ -20,7 +20,7 @@
             android:text="@string/app_name2"
             style="@style/textMainRub"
             android:layout_marginStart="0dp"
-            android:textColor="@color/yellow"/>
+            android:textColor="?attr/yellow"/>
     </LinearLayout>
 
     <FrameLayout
@@ -41,7 +41,7 @@
             app:frameSize="0.75"
             app:frameThickness="2dp"
             app:frameVerticalBias="0.5"
-            app:maskColor="#77000000"/>
+            app:maskColor="?attr/blackout"/>
     </FrameLayout>
 
 </LinearLayout>

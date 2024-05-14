@@ -52,7 +52,7 @@ public class ScannerQRFragment extends Fragment  {
 //            if (isNOTEmpty(MainActivity.userName.trim())) {
                 Intent playIntent = new Intent(requireContext(), QuizActivity.class);
                 playIntent.putExtra("roomId", code.trim());
-                playIntent.putExtra("userName", MainActivity.userName.trim());
+                playIntent.putExtra("userName", JoinFragment.getUserName().trim());
                 startActivity(playIntent);
 //            }
         }));

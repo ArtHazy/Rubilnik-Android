@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class ResultFragment extends Fragment {
 
     public static Button btnReturn;
@@ -31,7 +33,7 @@ public class ResultFragment extends Fragment {
         LinearLayout leaderBoardLinLay = rootView.findViewById(R.id.leaderBoardLinLay);
         btnReturn = rootView.findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> {
-            getActivity().finish();
+            requireActivity().finish();
         });
 
 

@@ -1,8 +1,37 @@
 <resources>
+
     <!-- Base application theme. -->
-    <style name="Base.Theme.Rubilnik" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/greyDark</item>
+    <style name="Theme_Light" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/greyLight</item>
+        <item name="colorPrimaryVariant">@color/greyLight</item>
+        <item name="colorOnPrimary">@color/greyLight</item>
+
+        <item name="android:statusBarColor">@color/greyLight</item>
+        <item name="android:windowBackground">@color/greyLight</item>
+
+        <item name="yellow">@color/yellowDark</item>
+        <item name="greyAdd">@color/greyDark</item>
+        <item name="greyMain">@color/greyLight</item>
+        <item name="cine">@color/cineDark</item>
+        <item name="greyHint">@color/greyHintDark</item>
+        <item name="cineBottomBar">@color/cineBottomBarDark</item>
+        <item name="blackout">@color/blackoutLight</item>
     </style>
 
-    <style name="Theme.Rubilnik" parent="Base.Theme.Rubilnik" />
+    <style name="Theme_Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/greyDark</item>
+        <item name="colorPrimaryVariant">@color/greyDark</item>
+        <item name="colorOnPrimary">@color/greyDark</item>
+
+        <item name="android:statusBarColor">@color/greyDark</item>
+        <item name="android:windowBackground">@color/greyDark</item>
+
+        <item name="yellow">@color/yellowLight</item>
+        <item name="greyAdd">@color/greyLight</item>
+        <item name="greyMain">@color/greyDark</item>
+        <item name="cine">@color/cineLight</item>
+        <item name="greyHint">@color/greyHintLight</item>
+        <item name="cineBottomBar">@color/cineBottomBarLight</item>blackout
+        <item name="blackout">@color/blackoutDark</item>
+    </style>
 </resources>

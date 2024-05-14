@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/textViewWaiting"
         style="@style/textRegular"
-        android:textColor="@color/greyHintLight"
+        android:textColor="?attr/greyHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

@@ -14,11 +14,11 @@
 
         <TextView
             android:id="@+id/txtMusic"
-            android:text="@string/music"
+            android:text="@string/theme"
             style="@style/textMainAll"/>
 
         <Switch
-            android:id="@+id/swMusic"
+            android:id="@+id/swTheme"
             style="@style/swOnOff"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 

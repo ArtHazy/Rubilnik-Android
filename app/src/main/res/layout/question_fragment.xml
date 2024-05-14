@@ -17,14 +17,14 @@
             android:text="@string/question"
             style="@style/textMainAll"
             android:layout_marginTop="0dp"
-            android:textColor="@color/yellow"/>
+            android:textColor="?attr/yellow"/>
         <TextView
             android:id="@+id/txtQuestionInd"
             android:text="@string/numQuestion"
             style="@style/textMainAll"
             android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
-            android:textColor="@color/yellow"/>
+            android:textColor="?attr/yellow"/>
     </LinearLayout>
 
     <FrameLayout

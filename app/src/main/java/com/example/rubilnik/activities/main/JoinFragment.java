@@ -1,6 +1,8 @@
 package com.example.rubilnik.activities.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,19 +12,24 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.R;
 import com.example.rubilnik.activities.play.QuizActivity;
 
-import java.util.Objects;
+import java.io.IOException;
 
 public class JoinFragment extends Fragment {
     public static androidx.appcompat.widget.AppCompatButton btnConnect;
 //    androidx.appcompat.widget.AppCompatButton usernameButton;
 
     private EditText editTextRoomId;
-    private EditText editTextUserName;
+    private static EditText editTextUserName;
+
+    private static final String PREF_NAME = "userName";
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,11 +39,14 @@ public class JoinFragment extends Fragment {
         editTextUserName = rootView.findViewById(R.id.editTextName);
         editTextRoomId = rootView.findViewById(R.id.editTextKey);
 
+        preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
+
+        if (savedInstanceState != null) {
+            editTextUserName.setText(savedInstanceState.getString(PREF_NAME));
+        }
+
         //SCANNER RESULT
         editTextRoomId.setText(ScannerQRFragment.code);
-
-        if (!Objects.equals(MainActivity.userName, "test"))
-            editTextUserName.setText(MainActivity.userName);
 
         //check input in textEdits
         editTextUserName.addTextChangedListener(new TextWatcher() {
@@ -45,8 +55,11 @@ public class JoinFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 upperCase(s, editTextUserName);
-                // Обновите переменную при изменении текста в EditText
-                MainActivity.userName = s.toString();
+
+                //Сохранение данных
+                editor = preferences.edit();
+                editor.putString(PREF_NAME, s.toString());
+                editor.apply();
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -66,8 +79,16 @@ public class JoinFragment extends Fragment {
         });
 
         btnConnect.setOnClickListener((v) -> {
-            connect();
+            try {
+                connect();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
+
+        // Восстановление данных при создании представления фрагмента
+        editTextUserName.setText(preferences.getString(PREF_NAME, ""));
+
         return rootView;
     }
 
@@ -79,12 +100,20 @@ public class JoinFragment extends Fragment {
         }
     }
 
-    private void connect() {
-        if (isNOTEmpty(MainActivity.userName)) {
+    private void connect() throws IOException {
+        String roomID = editTextRoomId.getText().toString().trim();
+
+//        HTTPRequest httpRequest = new HTTPRequest(roomID);
+//        httpRequest.run();
+//        int errorCode = httpRequest.getStatus(); errorCode == 200 &&
+
+        if (isNOTEmpty(editTextUserName.getText().toString())) {
             Intent playIntent = new Intent(this.getContext(), QuizActivity.class);
-            playIntent.putExtra("roomId", editTextRoomId.getText().toString().trim());
-            playIntent.putExtra("userName", MainActivity.userName);
+            playIntent.putExtra("roomId", roomID);
+            playIntent.putExtra("userName", editTextUserName.getText().toString());
             startActivity(playIntent);
+        } else {
+            Toast.makeText(requireContext(), "Неверный код сессии!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -95,5 +124,15 @@ public class JoinFragment extends Fragment {
             return false;
         }
         else return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(PREF_NAME, editTextUserName.getText().toString());
+    }
+
+    public static String getUserName() {
+        return editTextUserName.getText().toString();
     }
 }

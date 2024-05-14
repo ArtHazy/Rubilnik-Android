@@ -46,7 +46,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
     //scanner qr-codes
     implementation("com.github.yuriy-budiyev:code-scanner:2.3.0")
 }

@@ -8,22 +8,22 @@
     </style>
     <style name="textMainRub" parent="textMain">
         <item name="android:layout_marginTop">36dp</item>
-        <item name="android:textColor">@color/cineLight</item>
+        <item name="android:textColor">?attr/cine</item>
         <item name="android:textSize">34sp</item>
     </style>
     <style name="textMainAll" parent="textMain">
         <item name="android:layout_marginTop">36sp</item>
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">?attr/yellow</item>
         <item name="android:textSize">26sp</item>
     </style>
     <style name="textMainEditText" parent="textMain">
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textColor">?attr/greyMain</item>
         <item name="android:textSize">18sp</item>
         <item name="android:padding">20dp</item>
         <item name="android:background">@drawable/edit_text_bg</item>
-        <item name="android:textColorHint">"@color/greyHint"</item>
+        <item name="android:textColorHint">"?attr/greyHint"</item>
         <item name="android:minWidth">230dp</item>
         <item name="android:maxWidth">230dp</item>
         <item name="android:inputType">textCapCharacters</item>
@@ -33,7 +33,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:color">@color/greyDark</item>
+        <item name="android:color">?attr/greyMain</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:singleLine">false</item>
@@ -43,14 +43,14 @@
     <style name="btn" parent="textMainAll" >
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">?attr/yellow</item>
         <item name="android:padding">20dp</item>
         <item name="android:background">@drawable/btn_state</item>
         <item name="android:layout_width">230dp</item>
     </style>
     <style name="btnChoice">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textColor">?attr/greyMain</item>
         <item name="android:showText">true</item>
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">70dp</item>
