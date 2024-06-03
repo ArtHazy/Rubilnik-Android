@@ -42,6 +42,9 @@
     <string name="roomDoesntExist">Комнаты не существует</string>
     <string name="waiting_for_the_host">ожидание хоста…</string>
 
+    <string name="exit_flag">Вы точно хотите покинуть викторину?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
 
     <string-array name="choiceName">

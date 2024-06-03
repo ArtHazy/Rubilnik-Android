@@ -41,6 +41,10 @@
     <string name="roomDoesntExist">room doesn\'t exist</string>
     <string name="waiting_for_the_host">waiting for the host…</string>
 
+    <string name="exit_flag">Are you sure you want to leave the quiz?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 
     <string-array name="choiceName">
         <item>A</item>

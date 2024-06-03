@@ -1,10 +1,18 @@
 package com.example.rubilnik.activities.play;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +20,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
+import com.example.rubilnik.activities.main.MainActivity;
+import com.example.rubilnik.activities.main.SettingsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +44,13 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+//        String themeName = MainActivity.getThemeString();
+//        if (themeName.equals("Theme_Light")) {
+//            setTheme(R.style.Theme_Light);
+//        } else if (themeName.equals("Theme_Dark")) {
+//            setTheme(R.style.Theme_Dark);
+//        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         // Блокировка ориентации на портретный режим
@@ -171,10 +188,23 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        //    MainActivity.mSocket.disconnect();
-        //    MainActivity.mSocket.off();
-        this.finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.custom_dialog, null);
+        builder.setView(dialogView);
+
+        Button btnDlgCancel = dialogView.findViewById(R.id.btn_dlg_cancel);
+        Button btnDlgOk = dialogView.findViewById(R.id.btn_dlg_ok);
+
+        AlertDialog dialog = builder.create();
+        btnDlgCancel.setOnClickListener((v) -> {
+            // Действия при нажатии на кнопку
+            dialog.dismiss(); // Закрыть диалог
+        });
+        btnDlgOk.setOnClickListener((v) -> {
+            // Действия при нажатии на кнопку
+            finish(); // Закрыть активити
+        });
+        dialog.show();
     }
     @Override
     protected void onDestroy() {

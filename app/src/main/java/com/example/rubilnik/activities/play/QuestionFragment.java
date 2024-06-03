@@ -52,8 +52,12 @@ public class QuestionFragment extends Fragment {
         ViewGroup decorView = (ViewGroup) requireActivity().getWindow().getDecorView();
         View overlayView = new View(requireActivity());
         ViewGroup.LayoutParams params_blackout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        // Создаем новый полупрозрачный View
         overlayView.setLayoutParams(params_blackout);
+        // Создаем новый полупрозрачный View
+
+        overlayView.setBackgroundColor(Color.parseColor("#8FFFFFFF")); // Устанавливаем цвет и прозрачность слоя
+//        decorView.addView(overlayView);
+
         overlayView.setBackgroundColor(Color.parseColor("#80000000")); // Устанавливаем цвет и прозрачность слоя
 
         txtQuestion.setText(text);
@@ -103,7 +107,7 @@ public class QuestionFragment extends Fragment {
                     QuizActivity.socket.emit("choice", data);
 
                     // Добавляем View поверх текущего содержимого
-                    decorView.addView(overlayView);
+//                    decorView.addView(overlayView);
 
 
                 });

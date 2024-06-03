@@ -1,68 +1,50 @@
 package com.example.rubilnik.activities.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 
-import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
-import com.example.rubilnik.activities.play.LobbyFragment;
-import com.example.rubilnik.activities.play.QuizActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
-
-import io.socket.client.IO;
-import io.socket.client.Socket;
 
 
 public class MainActivity extends AppCompatActivity {
 //    NavController navController;
     private BottomNavigationView bottomNavigationView;
     public static boolean nightMode;
+    private static String theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         String themeName = pref.getString(SettingsFragment.getPrefTheme(), "Theme_Dark");
+        theme = themeName;
         if (themeName.equals("Theme_Light")) {
             setTheme(R.style.Theme_Light);
         } else if (themeName.equals("Theme_Dark")) {
-            //Toast.makeText(this, "set theme", Toast.LENGTH_SHORT).show();
             setTheme(R.style.Theme_Dark);
         }
 
-        Toast.makeText(this, themeName, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, themeName, Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Блокировка ориентации на портретный режим
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
         //NAVIGATION
         // Register event handlers
         //NAVIGATION
@@ -137,5 +119,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         replaceFragment(new SettingsFragment());
+    }
+
+    public static String getThemeString() {
+        return theme;
     }
 }
