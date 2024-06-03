@@ -3,6 +3,7 @@ package com.example.rubilnik.activities.play;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +81,7 @@ public class QuestionFragment extends Fragment {
             String text ="";
             try {
                 choice = choices.getJSONObject(i);
-                text = choice.getString("text");
+                text = choice.getString("title");
             } catch (JSONException e) {MyTools.LogError(e);}
 
             if (text.length()>0) { // if choice exists
@@ -96,14 +97,18 @@ public class QuestionFragment extends Fragment {
                     JSONObject data = new JSONObject();
                     int choiceInd = finalI;
                     try {
-                        data.put("roomId",QuizActivity.currentRoomId);
+                        JSONArray choices = new JSONArray();
+                        choices.put(choiceInd);
+                        Log.d("sds", "roomId: "+QuizActivity.roomId); //!
+                        data.put("roomId",QuizActivity.roomId);
 //                        data.put("userId",QuizActivity.playerId);
                         data.put("questionInd", QuizActivity.questionInd);
-                        data.put("choiceInd", choiceInd);
+                        data.put("choices", choices);
                     } catch (JSONException e) {throw new RuntimeException(e);}
                     for (Button chButton:choiceButtons) {
                         chButton.setClickable(false);
                     }
+                    Log.d("sds", "emit choice: "+data.toString());
                     QuizActivity.socket.emit("choice", data);
 
                     // Добавляем View поверх текущего содержимого

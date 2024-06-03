@@ -33,13 +33,14 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 
 public class QuizActivity extends AppCompatActivity {
-    static public String currentRoomId;
     static public int questionInd;
     public static Socket socket;
     private JSONObject roommates;
-    private String roomId;
+    static public String roomId;
     private String userName;
-    private String userId;
+    static private String userId;
+
+    static public String getUserId(){return userId;}
 
 
     @Override
@@ -57,7 +58,7 @@ public class QuizActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         try {
-            socket = IO.socket("http://192.168.0.174:3000").connect();
+            socket = IO.socket("http://192.168.0.7:3000").connect();
         } catch (URISyntaxException e) {throw new RuntimeException(e);}
 
         roomId = (String) getIntent().getExtras().get("roomId");
@@ -110,17 +111,6 @@ public class QuizActivity extends AppCompatActivity {
             runOnUiThread(() -> {MyTools.alert(this,getString(R.string.quizStarted));});
         });
 
-        socket.on("choice", args -> {
-            JSONObject data = (JSONObject) args[0];
-            try {
-                String userId = data.getString("userId");
-                int questionInd = data.getInt("questionInd");
-                JSONArray choices = data.getJSONArray("choices");
-                int choiceInd = choices.getInt(0);
-                Log.d("erer", String.valueOf(choiceInd));
-            } catch (JSONException e) {throw new RuntimeException(e);}
-        });
-
         socket.on("reveal", args -> {
             JSONObject data = (JSONObject) args[0];
             JSONArray correctChoicesInd;
@@ -135,7 +125,7 @@ public class QuizActivity extends AppCompatActivity {
             try {
                 JSONObject question = data.getJSONObject("question");
                 questionInd = data.getInt("questionInd");
-                String text = question.getString("text");
+                String text = question.getString("title");
                 JSONArray choices = question.getJSONArray("choices");
                 replaceFragment(new QuestionFragment(text,choices, questionInd));
 //                replaceFragment(new QuestionFragment(text,choices,questionInd));
@@ -151,16 +141,12 @@ public class QuizActivity extends AppCompatActivity {
             } catch (JSONException e) {MyTools.LogError(e);}
         });
 
-        socket.on("end", args -> {
-
-        });
-
         socket.on("scores", args -> {
             JSONObject data = (JSONObject) args[0];
             JSONArray scores;
             try {
                 scores = data.getJSONArray("usersScores");
-                Log.d("erer", String.valueOf(scores));
+                Log.d("erer", scores.toString());
                 replaceFragment(new ResultFragment(scores));
             }
             catch (JSONException e) {MyTools.LogError(e);}

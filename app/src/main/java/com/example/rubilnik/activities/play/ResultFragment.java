@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -38,68 +39,35 @@ public class ResultFragment extends Fragment {
 
 
         for (int i=0; i<scores.length();i++){
-            String userId="";
-            String userName="";
-            String scoreS ="";
+            String id="";
+            // if ( id.equals(QuizActivity.getUserId())) {} //!
+            String name="";
+            Integer points=null;
             try {
                 JSONObject score = scores.getJSONObject(i);
-
-                userId = score.getString("userId");
-
-//                if (userId.equals(QuizActivity.playerId)){
-//
-//                    userName = score.getString("userName");
-//                    Toast.makeText(rootView.getContext(),userId,Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(rootView.getContext(),userName,Toast.LENGTH_SHORT).show();
-//                    int scoreInt = score.getInt("score");
-//
-//                    TextView txtRatingPosInfo = rootView.findViewById(R.id.txtRatingPosInfo);
-//                    TextView txtRightAnswersInfo = rootView.findViewById(R.id.txtRightAnswersInfo);
-//
-//                    txtRatingPosInfo.setText(String.valueOf(++i));
-//                    txtRightAnswersInfo.setText(String.valueOf(scoreInt));
-//                }
+                id = score.getString("userId");
+                points = score.getInt("userScore");
             } catch (JSONException e) {MyTools.LogError(e);}
+            TextView placeTextV = new TextView(this.getContext());
+            placeTextV.setText(String.valueOf(i));
+            TextView idTextV = new TextView(this.getContext());
+            idTextV.setText(id);
+            TextView nameTextV = new TextView(this.getContext());
 
+            nameTextV.setText(name);
+            TextView pointsTextV = new TextView(this.getContext());
+            if (points!=null) {pointsTextV.setText(points.toString());}
+
+            LinearLayout scoreLog = new LinearLayout(this.getContext());
+            View v = new View(this.getContext());
+
+            scoreLog.addView(placeTextV);
+            scoreLog.addView(idTextV);
+            scoreLog.addView(nameTextV);
+            scoreLog.addView(pointsTextV);
+            scoreLog.setOrientation(LinearLayout.HORIZONTAL);
+            leaderBoardLinLay.addView(scoreLog);
         }
-
-
-
-//        for (int i=0; i<scores.length();i++){
-//            String userId="";
-//            String userName="";
-//            String scoreS ="";
-//            try {
-//                JSONObject score = scores.getJSONObject(i);
-//
-//                userId = score.getString("userId");
-//                userName = score.getString("userName");
-//                Toast.makeText(rootView.getContext(),userId,Toast.LENGTH_SHORT).show();
-//                Toast.makeText(rootView.getContext(),userName,Toast.LENGTH_SHORT).show();
-//                int scoreInt = score.getInt("score");
-//                scoreS = String.valueOf(scoreInt);
-//
-//            } catch (JSONException e) {MyTools.LogError(e);}
-//
-//            TextView userIdTextView = new TextView(rootView.getContext());
-//            userIdTextView.setText(userId);
-//            TextView userNameTextView = new TextView(rootView.getContext());
-//            userNameTextView.setText(userName);
-//            TextView scoreIntTextView = new TextView(rootView.getContext());
-//            scoreIntTextView.setText(scoreS);
-//
-//            LinearLayout linearLayout = new LinearLayout(rootView.getContext());
-//            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-//            int padding = MyTools.dpToPx(rootView.getContext(),8);
-//            linearLayout.setPadding(padding,padding,padding,padding);
-//            linearLayout.addView(userIdTextView);
-//            linearLayout.addView(userNameTextView);
-//            linearLayout.addView(scoreIntTextView);
-//
-//            leaderBoardLinLay.addView(linearLayout);
-//
-//        }
-
 
         return rootView;
     }

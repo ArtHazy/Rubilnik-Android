@@ -7,6 +7,11 @@
     tools:context=".activities.play.ResultFragment"
     android:background="@android:color/transparent">
 
+    <TextView
+        android:id="@+id/txtResult"
+        style="@style/textMainRub"
+        android:text="@string/result" />
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
@@ -17,31 +22,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
-    <TextView
-        android:id="@+id/txtResult"
-        android:text="@string/result"
-        style="@style/textMainRub"/>
-
-    <TextView
-        android:id="@+id/txtRatingPos"
-        android:text="@string/ratingPos"
-        style="@style/textMainAll"/>
-
-    <TextView
-        android:id="@+id/txtRatingPosInfo"
-        style="@style/textMainEditText"
-        android:text="-" />
-
-    <TextView
-        android:id="@+id/txtRightAnswers"
-        style="@style/textMainAll"
-        android:text="@string/txtRightAnswers"/>
-
-    <TextView
-        android:id="@+id/txtRightAnswersInfo"
-        style="@style/textMainEditText"
-        android:text="-" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnReturn"
