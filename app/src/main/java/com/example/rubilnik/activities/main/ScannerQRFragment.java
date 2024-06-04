@@ -2,7 +2,9 @@ package com.example.rubilnik.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,11 +24,16 @@ import com.budiyev.android.codescanner.ScanMode;
 import com.example.rubilnik.R;
 import com.example.rubilnik.activities.play.QuizActivity;
 
+import java.util.Objects;
+
 
 public class ScannerQRFragment extends Fragment  {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private CodeScanner mCodeScanner;
     public static String code = "";
+    private static final String PREF_NAME = JoinFragment.PREF_NAME;
+    private static final String APP_PREFERENCES = JoinFragment.APP_PREFERENCES;
+    private String userName;
 
     @Nullable
     @Override
@@ -38,6 +45,9 @@ public class ScannerQRFragment extends Fragment  {
         mCodeScanner = new CodeScanner(activity, scannerView);
         code = "";
 
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        userName = sharedPref.getString(PREF_NAME, "TEST");
+
         setupPermissions();
 
         mCodeScanner.setAutoFocusEnabled(true);
@@ -48,13 +58,10 @@ public class ScannerQRFragment extends Fragment  {
 
         mCodeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             code = result.getText();
-
-//            if (isNOTEmpty(MainActivity.userName.trim())) {
-                Intent playIntent = new Intent(requireContext(), QuizActivity.class);
-                playIntent.putExtra("roomId", code.trim());
-                playIntent.putExtra("userName", JoinFragment.getUserName().trim());
-                startActivity(playIntent);
-//            }
+            Intent playIntent = new Intent(requireContext(), QuizActivity.class);
+            playIntent.putExtra("roomId", code.trim());
+            playIntent.putExtra("userName", userName.trim());
+            startActivity(playIntent);
         }));
 
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());

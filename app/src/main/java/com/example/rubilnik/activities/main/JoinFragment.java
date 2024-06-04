@@ -22,12 +22,10 @@ import java.io.IOException;
 
 public class JoinFragment extends Fragment {
     public static androidx.appcompat.widget.AppCompatButton btnConnect;
-//    androidx.appcompat.widget.AppCompatButton usernameButton;
-
     private EditText editTextRoomId;
-    private static EditText editTextUserName;
-
-    private static final String PREF_NAME = "userName";
+    private EditText editTextUserName;
+    public static final String PREF_NAME = "userName";
+    public static final String APP_PREFERENCES = "settings";
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
@@ -39,7 +37,7 @@ public class JoinFragment extends Fragment {
         editTextUserName = rootView.findViewById(R.id.editTextName);
         editTextRoomId = rootView.findViewById(R.id.editTextKey);
 
-        preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
+        preferences = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         if (savedInstanceState != null) {
             editTextUserName.setText(savedInstanceState.getString(PREF_NAME));
@@ -130,9 +128,5 @@ public class JoinFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(PREF_NAME, editTextUserName.getText().toString());
-    }
-
-    public static String getUserName() {
-        return editTextUserName.getText().toString();
     }
 }

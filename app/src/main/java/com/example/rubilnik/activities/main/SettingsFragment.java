@@ -20,6 +20,8 @@ public class SettingsFragment extends Fragment {
     Switch swTheme;
     Button btnFeedback;
     private static final String PREF_THEME = "theme";
+
+    private static final String APP_PREFERENCES = JoinFragment.APP_PREFERENCES;
     private static SharedPreferences preferences;
     public static String value;
 
@@ -41,24 +43,19 @@ public class SettingsFragment extends Fragment {
             swTheme.setChecked(true);
         }
 
-        swTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked) {
-                    value = "Theme_Dark";
-                    safeTheme();
-                } else {
-                    value = "Theme_Light";
-                    safeTheme();
-                }
-                requireActivity().recreate(); // Пересоздаем активность для применения изменений
+        swTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                value = "Theme_Dark";
+                safeTheme();
+            } else {
+                value = "Theme_Light";
+                safeTheme();
             }
+            requireActivity().recreate(); // Пересоздаем активность для применения изменений
         });
 
         btnFeedback.setOnClickListener((v) -> {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            requireActivity().recreate();
+            //!!!!!!!!!!!!
         });
 
         return rootView;

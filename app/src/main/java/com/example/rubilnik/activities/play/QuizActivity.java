@@ -1,15 +1,10 @@
 package com.example.rubilnik.activities.play;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -20,8 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rubilnik.MyTools;
 import com.example.rubilnik.R;
-import com.example.rubilnik.activities.main.MainActivity;
-import com.example.rubilnik.activities.main.SettingsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +51,7 @@ public class QuizActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         try {
-            socket = IO.socket("http://192.168.0.7:3000").connect();
+            socket = IO.socket("http://192.168.0.174:3000").connect();
         } catch (URISyntaxException e) {throw new RuntimeException(e);}
 
         roomId = (String) getIntent().getExtras().get("roomId");
@@ -174,8 +167,9 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.custom_dialog, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
+
         builder.setView(dialogView);
 
         Button btnDlgCancel = dialogView.findViewById(R.id.btn_dlg_cancel);
