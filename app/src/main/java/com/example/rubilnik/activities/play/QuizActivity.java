@@ -121,7 +121,6 @@ public class QuizActivity extends AppCompatActivity {
                 String text = question.getString("title");
                 JSONArray choices = question.getJSONArray("choices");
                 replaceFragment(new QuestionFragment(text,choices, questionInd));
-//                replaceFragment(new QuestionFragment(text,choices,questionInd));
             } catch (JSONException e) {throw new RuntimeException(e);}
         });
 

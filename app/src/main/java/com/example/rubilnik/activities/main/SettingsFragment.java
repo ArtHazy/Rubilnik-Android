@@ -6,14 +6,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rubilnik.R;
+import com.example.rubilnik.activities.list.ListAdapter;
+import com.example.rubilnik.activities.list.ListData;
+
+import java.util.ArrayList;
 
 public class SettingsFragment extends Fragment {
 
@@ -31,7 +37,7 @@ public class SettingsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.settings_fragment, container, false);
         swTheme = rootView.findViewById(R.id.swTheme);
-        btnFeedback = rootView.findViewById(R.id.btnFeedback);
+//        btnFeedback = rootView.findViewById(R.id.btnFeedback);
 
         preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
 
@@ -54,9 +60,9 @@ public class SettingsFragment extends Fragment {
             requireActivity().recreate(); // Пересоздаем активность для применения изменений
         });
 
-        btnFeedback.setOnClickListener((v) -> {
-            //!!!!!!!!!!!!
-        });
+//        btnFeedback.setOnClickListener((v) -> {
+//            //!!!!!!!!!!!!
+//        });
 
         return rootView;
     }

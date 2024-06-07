@@ -3,8 +3,10 @@ package com.example.rubilnik.activities.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,18 +21,17 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.rubilnik.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 //    NavController navController;
     private BottomNavigationView bottomNavigationView;
-    public static boolean nightMode;
-    private static String theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         String themeName = pref.getString(SettingsFragment.getPrefTheme(), "Theme_Dark");
-        theme = themeName;
         if (themeName.equals("Theme_Light")) {
             setTheme(R.style.Theme_Light);
         } else if (themeName.equals("Theme_Dark")) {
@@ -39,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
 //        Toast.makeText(this, themeName, Toast.LENGTH_SHORT).show();
 
+        long[] pattern = {0, 100, 1000, 300, 200, 100, 500, 200, 100};
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Блокировка ориентации на портретный режим
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setHapticFeedbackEnabled(true);
 
 //        FragmentManager fragmentManager = getSupportFragmentManager();
         //NAVIGATION
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            vibrate();
             if (id == R.id.main) {
                 replaceFragment(new JoinFragment());
             }
@@ -121,7 +126,10 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new SettingsFragment());
     }
 
-    public static String getThemeString() {
-        return theme;
+    public void vibrate() {
+//        long[] mVibratePattern = new long[]{0, 400, 800, 600, 800, 800, 800, 1000};
+//        int[] mAmplitudes = new int[]{0, 255, 0, 255, 0, 255, 0, 255};
+//        ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, -1));
+//        ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(50, -1));
     }
 }

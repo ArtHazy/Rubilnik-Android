@@ -16,6 +16,8 @@
         <item name="greyHint">@color/greyHintDark</item>
         <item name="cineBottomBar">@color/cineBottomBarDark</item>
         <item name="blackout">@color/blackoutLight</item>
+
+<!--        <item name="android:windowDisablePreview">true</item>-->
     </style>
 
     <style name="Theme_Dark" parent="Theme.Material3.DayNight.NoActionBar">
@@ -33,5 +35,7 @@
         <item name="greyHint">@color/greyHintLight</item>
         <item name="cineBottomBar">@color/cineBottomBarLight</item>blackout
         <item name="blackout">@color/blackoutDark</item>
+
+<!--        <item name="android:windowDisablePreview">true</item>-->
     </style>
 </resources>

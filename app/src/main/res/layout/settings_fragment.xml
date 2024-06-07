@@ -22,20 +22,20 @@
             style="@style/swOnOff"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <TextView
-            android:id="@+id/txtSound"
-            android:text="@string/sound"
-            style="@style/textMainAll"/>
+<!--        <TextView-->
+<!--            android:id="@+id/txtSound"-->
+<!--            android:text="@string/sound"-->
+<!--            style="@style/textMainAll"/>-->
 
-        <Switch
-            android:id="@+id/swSound"
-            style="@style/swOnOff"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+<!--        <Switch-->
+<!--            android:id="@+id/swSound"-->
+<!--            style="@style/swOnOff"-->
+<!--            tools:ignore="UseSwitchCompatOrMaterialXml" />-->
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnFeedback"
-            style="@style/btn"
-            android:text="@string/feedback"
-            android:layout_marginTop="72dp" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btnFeedback"-->
+<!--            style="@style/btn"-->
+<!--            android:text="@string/feedback"-->
+<!--            android:layout_marginTop="72dp" />-->
 
 </LinearLayout>
